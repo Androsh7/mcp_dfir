@@ -1,0 +1,15 @@
+# VSCode
+.vscode
+
+# Python
+.venv
+__pycache__/
+build/
+*.egg-info
+
+# Claude
+.claude/
+
+# Project
+analysis/
+evidence/
