@@ -4,7 +4,7 @@
 from mcp.server.fastmcp import FastMCP
 
 # Project libraries
-from llm_forensics.tools.file_search import list_files
+from llm_forensics.tools.file_search import list_files, run_find, run_grep, run_strings
 from llm_forensics.tools.hash import get_hash
 from llm_forensics.tools.history import get_command_history, get_command_result
 from llm_forensics.tools.notes import (
@@ -13,6 +13,7 @@ from llm_forensics.tools.notes import (
     show_analyst_notes_summary,
     update_analyst_note,
 )
+from llm_forensics.tools.sleuthkit import run_sleuthkit_command
 from llm_forensics.tools.volatility import download_windows_symbol, run_volatility_command
 
 # Create MCP server
@@ -31,6 +32,7 @@ While performing analysis follow these rules:
 1. Everything whether benign or malicious must be documented, including the commands that were run, the research that was done, and the conclusion with sufficient reasoning
 2. Never make any assumptions, if a conclusion cannot be reached on whether a finding is benign or malicious explicitly mark it as needing additional research
 3. Never use custom bash or python scripts to parse files, only use the built-in head/tail/regex/truncate options when going through command results
+4. All artifacts should be saved under /artifacts
 
 Rules for documenting analyst notes:
 1. All notes must be in markdown format
@@ -40,6 +42,9 @@ Rules for documenting analyst notes:
 
 # File search
 mcp.add_tool(list_files)
+mcp.add_tool(run_strings)
+mcp.add_tool(run_grep)
+mcp.add_tool(run_find)
 
 # Hash
 mcp.add_tool(get_hash)
@@ -51,6 +56,9 @@ mcp.add_tool(get_command_result)
 # Volatility
 mcp.add_tool(run_volatility_command)
 mcp.add_tool(download_windows_symbol)
+
+# Sleuthkit
+mcp.add_tool(run_sleuthkit_command)
 
 # Notes
 mcp.add_tool(show_analyst_notes_summary)

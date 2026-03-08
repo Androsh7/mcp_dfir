@@ -8,6 +8,7 @@ PARENT_DIRECTORY = Path(__file__).parent.parent
 EVIDENCE_DIRECTORY = PARENT_DIRECTORY / "evidence"
 ANALYSIS_DIRECTORY = PARENT_DIRECTORY / "analysis"
 SYMBOLS_DIRECTORY = PARENT_DIRECTORY / "symbols"
+ARTIFACTS_DIRECTORY = PARENT_DIRECTORY / "artifacts"
 WINDOWS_SYMBOLS_DIRECTORY = SYMBOLS_DIRECTORY / "windows"
 
 # Volatility symbols
@@ -26,4 +27,5 @@ DOCKER_IMAGE = f"{DOCKER_NAME}:{VERSION}"
 DOCKER_VOLUME_MOUNTS = {
     "evidence": {"external_path": EVIDENCE_DIRECTORY, "internal_path": "/evidence", "permissions": "ro"},
     "symbols": {"external_path": SYMBOLS_DIRECTORY, "internal_path": "/symbols", "permissions": "rw"},
+    "artifacts": {"external_path": ARTIFACTS_DIRECTORY, "internal_path": "/artifacts", "permissions": "rw"},
 }

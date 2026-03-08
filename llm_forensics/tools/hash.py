@@ -6,9 +6,8 @@ from typing import Literal
 # Third-party libraries
 from mcp.server.fastmcp import Context
 
-from llm_forensics.docker_manager import docker_manager
-
 # Project libraries
+from llm_forensics.docker_manager import docker_manager
 from llm_forensics.tools.models import CommandRecordTruncated
 
 HASHING_ALGORITHMS = [
@@ -19,9 +18,7 @@ HASHING_ALGORITHMS = [
 ]
 
 
-def get_hash(
-    ctx: Context, file_path: str, algorithm: Literal["md5", "sha1", "sha256", "sha512"]
-) -> CommandRecordTruncated:
+def get_hash(ctx: Context, file_path: str, algorithm: Literal[*HASHING_ALGORITHMS]) -> CommandRecordTruncated:
     if algorithm.lower() not in HASHING_ALGORITHMS:
         raise KeyError(
             f'Unsupported hashing algorithm "{algorithm}", this function supports: {", ".join(HASHING_ALGORITHMS)}'
