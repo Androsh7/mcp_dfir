@@ -18,7 +18,9 @@ HASHING_ALGORITHMS = [
 ]
 
 
-def get_hash(ctx: Context, file_path: str, algorithm: Literal[*HASHING_ALGORITHMS]) -> CommandRecordTruncated:
+def get_hash(
+    ctx: Context, file_path: str, algorithm: Literal["md5", "sha1", "sha256", "sha512"]
+) -> CommandRecordTruncated:
     if algorithm.lower() not in HASHING_ALGORITHMS:
         raise KeyError(
             f'Unsupported hashing algorithm "{algorithm}", this function supports: {", ".join(HASHING_ALGORITHMS)}'

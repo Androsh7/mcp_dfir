@@ -26,6 +26,7 @@ DOCKER_NAME = "forensics-docker"
 DOCKER_IMAGE = f"{DOCKER_NAME}:{VERSION}"
 DOCKER_VOLUME_MOUNTS = {
     "evidence": {"external_path": EVIDENCE_DIRECTORY, "internal_path": "/evidence", "permissions": "ro"},
+    "analysis": {"external_path": ANALYSIS_DIRECTORY, "internal_path": "/analysis", "permissions": "ro"},
     "symbols": {"external_path": SYMBOLS_DIRECTORY, "internal_path": "/symbols", "permissions": "rw"},
     "artifacts": {"external_path": ARTIFACTS_DIRECTORY, "internal_path": "/artifacts", "permissions": "rw"},
 }

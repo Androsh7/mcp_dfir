@@ -45,7 +45,40 @@ SLEUTHKIT_COMMANDS = [
 
 
 def run_sleuthkit_command(
-    ctx: Context, tool: Literal[*SLEUTHKIT_COMMANDS], arguments: list[str]
+    ctx: Context,
+    tool: Literal[
+        "blkcalc",
+        "blkcat",
+        "blkls",
+        "blkstat",
+        "fcat",
+        "ffind",
+        "fiwalk",
+        "fls",
+        "fsstat",
+        "hfind",
+        "icat",
+        "ifind",
+        "ils",
+        "img_cat",
+        "img_stat",
+        "istat",
+        "jcat",
+        "jls",
+        "jpeg_extract",
+        "mactime",
+        "mmcat",
+        "mmls",
+        "mmstat",
+        "sigfind",
+        "sorter",
+        "srch_strings",
+        "tsk_comparedir",
+        "tsk_gettimes",
+        "tsk_loaddb",
+        "tsk_recover",
+    ],
+    arguments: list[str],
 ) -> CommandRecordTruncated:
     """Run sleuthkit commands for disk forensics: <tool> <arguments>
 

@@ -13,7 +13,7 @@ from llm_forensics.docker_manager import docker_manager
 from llm_forensics.tools.models import CommandRecordTruncated, FileDetails
 
 
-def list_files(path: Literal[*list(DOCKER_VOLUME_MOUNTS.keys())]) -> list[FileDetails]:
+def list_files(path: Literal["artifacts", "symbols", "evidence"]) -> list[FileDetails]:
     if path not in list(DOCKER_VOLUME_MOUNTS.keys()):
         raise RuntimeError(f"Invalid path {path}, valid paths are {list(DOCKER_VOLUME_MOUNTS.keys())}")
     out_list = []

@@ -8,7 +8,8 @@ ENV VOLATILITY_SYMBOLS=/usr/local/lib/python3.12/site-packages/volatility3/symbo
 WORKDIR /tools
 
 # Install libraries
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    binutils \
     sleuthkit \
     git \
 && rm -rf /var/lib/apt/lists/*
@@ -22,10 +23,11 @@ RUN pip install --upgrade pip setuptools wheel \
 && printf '#!/bin/bash\npython3 /tools/volatility3/vol.py "$@"\n' > /usr/local/bin/vol \
 && chmod +x /usr/local/bin/vol \
 && printf '#!/bin/bash\npython3 /tools/volatility3/volatility3/framework/symbols/windows/pdbconv.py "$@"\n' > /usr/local/bin/pdbconv \
-&& chmod +x /usr/local/bin/pdbconv
+&& chmod +x /usr/local/bin/pdbconv \
+&& apt-get remove -y git
 
 # Create analyst user
-RUN useradd -m -d /analysis analyst \
+RUN useradd -m -d /home analyst \
 && chown -R analyst:analyst /tools
 USER analyst
 
