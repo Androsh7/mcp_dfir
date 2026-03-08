@@ -3,8 +3,10 @@
 # Standard libraries
 import re
 
+from llm_forensics.data_manager import data_manager
+
 # Third-party libraries
-from llm_forensics.data_manager import CommandRecord, CommandRecordTruncated, data_manager
+from llm_forensics.tools.models import CommandRecordTruncated
 
 
 def get_command_history(truncate: int | None = 50) -> list[CommandRecordTruncated]:

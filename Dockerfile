@@ -25,7 +25,8 @@ RUN pip install --upgrade pip setuptools wheel \
 && chmod +x /usr/local/bin/pdbconv
 
 # Create analyst user
-RUN useradd -m -d /analysis analyst
+RUN useradd -m -d /analysis analyst \
+&& chown -R analyst:analyst /tools
 USER analyst
 
 ENTRYPOINT ["sleep", "infinity"]

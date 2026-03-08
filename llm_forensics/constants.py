@@ -13,8 +13,9 @@ WINDOWS_SYMBOLS_DIRECTORY = SYMBOLS_DIRECTORY / "windows"
 # Volatility symbols
 WINDOWS_SYMBOL_SERVER = "https://msdl.microsoft.com/download/symbols"
 
-# Command list
+# Analysis
 COMMAND_LIST_PATH = ANALYSIS_DIRECTORY / "command_list.json"
+NOTE_LIST_PATH = ANALYSIS_DIRECTORY / "analyst_note_list.json"
 
 # Version
 VERSION = "0.1.0"

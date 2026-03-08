@@ -2,67 +2,66 @@
 
 # Standard libraries
 import json
-from datetime import datetime
 
 # Third-party libraries
 from pydantic import BaseModel, Field
 
 # Project libraries
-from llm_forensics.constants import COMMAND_LIST_PATH
-
-
-def date_as_str() -> str:
-    return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
-
-class CommandRecordTruncated(BaseModel):
-    command: str = Field(examples=["vol -f capture.mem linux.pslist"])
-    date_run: str = Field(default_factory=date_as_str, examples=[datetime.now()])
-    result: str = Field(
-        examples=["Volatility 3 Framework 2.27.0\n\nPID\tPPID\tImageFileName\tOffset(V)..."],
-    )
-
-
-class CommandRecord(BaseModel):
-    command: str = Field(examples=["vol -f capture.mem linux.pslist"])
-    date_run: str = Field(default_factory=date_as_str, examples=[datetime.now()])
-    result: str = Field(
-        default="",
-        examples=[
-            "Volatility 3 Framework 2.27.0\n\nPID\tPPID\tImageFileName\tOffset(V)\tThreads\tHandles\tSessionId\tWow64\tCreateTime\tExitTime\tFile output\n\n4\t0\tSystem\t"
-        ],
-    )
-
-    def truncate(self, length: int | None) -> CommandRecordTruncated:
-        return CommandRecordTruncated(
-            command=self.command,
-            date_run=self.date_run,
-            result=f"{self.result[:length]}..." if length else self.result,
-        )
+from llm_forensics.constants import COMMAND_LIST_PATH, NOTE_LIST_PATH
+from llm_forensics.tools.models import AnalystNote, CommandRecord
 
 
 class DataManager(BaseModel):
     command_list: list[CommandRecord] = Field(default_factory=list, init=False)
+    note_list: list[AnalystNote] = Field(default_factory=list, init=False)
 
     def model_post_init(self, __context):
         if COMMAND_LIST_PATH.exists():
-            self.load_from_file()
+            self.load_history_from_file()
+        if NOTE_LIST_PATH.exists():
+            self.load_note_from_file()
 
-    def dump_to_file(self):
+    def dump_history_to_file(self):
         with open(file=COMMAND_LIST_PATH, mode="w", encoding="utf-8") as command_file:
             json.dump(
                 [record.model_dump() for record in self.command_list],
                 command_file,
             )
 
-    def load_from_file(self):
+    def load_history_from_file(self):
         with open(file=COMMAND_LIST_PATH, encoding="utf-8") as command_file:
             for command_record_dict in json.load(command_file):
                 self.command_list.append(CommandRecord.model_validate(command_record_dict))
 
-    def add(self, command_record: CommandRecord) -> CommandRecord:
+    def dump_note_to_file(self):
+        with open(file=NOTE_LIST_PATH, mode="w", encoding="utf-8") as note_file:
+            json.dump(
+                [note.model_dump() for note in self.note_list],
+                note_file,
+            )
+
+    def load_note_from_file(self):
+        with open(file=NOTE_LIST_PATH, encoding="utf-8") as note_file:
+            for note_dict in json.load(note_file):
+                self.note_list.append(AnalystNote.model_validate(note_dict))
+
+    def add_command(self, command_record: CommandRecord) -> CommandRecord:
         self.command_list.append(command_record)
-        self.dump_to_file()
+        self.dump_history_to_file()
         return command_record
+
+    def add_note(self, note: AnalystNote) -> AnalystNote:
+        self.note_list.append(note)
+        self.dump_note_to_file()
+        return note
+
+    def update_note(self, title: str, note: AnalystNote) -> AnalystNote:
+        for index, note in enumerate(self.note_list):
+            if note.title == title:
+                self.note_list[index] = note
+                self.dump_note_to_file()
+                return note
+        raise KeyError(f"No note with title '{title}'")
+
 
 data_manager = DataManager()

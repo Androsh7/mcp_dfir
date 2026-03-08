@@ -6,9 +6,10 @@ from typing import Literal
 # Third-party libraries
 from mcp.server.fastmcp import Context
 
-# Project libraries
-from llm_forensics.data_manager import CommandRecordTruncated
 from llm_forensics.docker_manager import docker_manager
+
+# Project libraries
+from llm_forensics.tools.models import CommandRecordTruncated
 
 HASHING_ALGORITHMS = [
     "md5",

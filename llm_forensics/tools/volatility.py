@@ -10,8 +10,8 @@ from mcp.server.fastmcp import Context
 
 # Project libraries
 from llm_forensics.constants import WINDOWS_SYMBOL_SERVER, WINDOWS_SYMBOLS_DIRECTORY
-from llm_forensics.data_manager import CommandRecord, CommandRecordTruncated
 from llm_forensics.docker_manager import docker_manager
+from llm_forensics.tools.models import CommandRecord, CommandRecordTruncated
 
 
 def run_volatility_command(ctx: Context, arguments: list[str]) -> CommandRecordTruncated:
@@ -32,7 +32,7 @@ def _download_windows_pdb(ctx: Context, pdb_name: str, guid: str, age: int) -> s
     guid = guid.replace("-", "")  # Normalize path
     url = f"{WINDOWS_SYMBOL_SERVER}/{pdb_name}/{guid}{age}/{pdb_name}"
     ctx.report_progress(f"Pulling symbol from {url}")
-    output_file_name = f'{guid}_{pdb_name}' 
+    output_file_name = f"{guid}_{pdb_name}"
     external_path = WINDOWS_SYMBOLS_DIRECTORY / "raw" / output_file_name
     external_path.parent.mkdir(mode=500, parents=True, exist_ok=True)
     internal_path = f"/symbols/windows/raw/{output_file_name}"
@@ -56,9 +56,9 @@ def download_windows_symbol(
     ctx: Context, pdb_name: str, guid: str, age: int, overwrite: bool = False
 ) -> CommandRecordTruncated:
     """Downloads windows symbols for volatility to `/symbols`"""
-    
+
     # Set correct naming convention and directory tree for volatility parsing
-    output_file_name = f'{guid}-{age}.json.xz'
+    output_file_name = f"{guid}-{age}.json.xz"
     output_file_external_path = WINDOWS_SYMBOLS_DIRECTORY / pdb_name / output_file_name
     output_file_internal_path = f"/symbols/windows/{pdb_name}/{output_file_name}"
     if output_file_external_path.exists() and not overwrite:

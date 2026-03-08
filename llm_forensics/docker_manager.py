@@ -13,7 +13,8 @@ from llm_forensics.constants import (
     DOCKER_NAME,
     DOCKER_VOLUME_MOUNTS,
 )
-from llm_forensics.data_manager import CommandRecord, CommandRecordTruncated, data_manager
+from llm_forensics.data_manager import data_manager
+from llm_forensics.tools.models import CommandRecord, CommandRecordTruncated
 
 
 @define
@@ -65,7 +66,7 @@ class DockerManager:
             raise RuntimeError("No docker container is currently running")
 
         ctx.report_progress(f"Running command {' '.join(command_list)}")
-        return data_manager.add(
+        return data_manager.add_command(
             CommandRecord(
                 command=" ".join(command_list),
                 result=self.docker.execute(

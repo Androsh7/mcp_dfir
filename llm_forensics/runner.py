@@ -1,4 +1,4 @@
-"""Argument runner for llm_forensics"""
+"""Runner for llm_forensics"""
 
 # Project libraries
 from llm_forensics.docker_manager import docker_manager
