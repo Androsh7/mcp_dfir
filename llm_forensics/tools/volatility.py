@@ -1,118 +1,86 @@
 """Defines volatility tools"""
 
 # Standard libraries
-import re
+import lzma
+from http import HTTPStatus
 
 # Third-party libraries
+import requests
 from mcp.server.fastmcp import Context
 
 # Project libraries
-from llm_forensics.server import mcp
+from llm_forensics.constants import WINDOWS_SYMBOL_SERVER, WINDOWS_SYMBOLS_DIRECTORY
+from llm_forensics.data_manager import CommandRecord, CommandRecordTruncated
 from llm_forensics.docker_manager import docker_manager
 
-@mcp.tool()
-def run_volatility_command(ctx: Context, arguments: list[str]) -> str:
+
+def run_volatility_command(ctx: Context, arguments: list[str]) -> CommandRecordTruncated:
+    """Runs volatility3: vol -s /symbols -r jsonl <arguments>
+
+    - To analyze a file you must specify the path using `-f /evidence/example.mem`
+    - Volatility3 does not come with many built-in symbols so they may need to be manually downloaded
     """
-    Run a Volatility 3 command against a memory image for forensic analysis.
+    return docker_manager.exec_stream(command_list=["vol", "-s", "/symbols", "-r", "jsonl", *arguments], ctx=ctx)
 
-    ## What is Volatility?
-    Volatility is the industry-standard open-source memory forensics framework. It
-    analyzes RAM dumps (memory images) captured from live systems. Because an attacker
-    cannot easily hide from RAM the way they can hide from disk (rootkits, file deletion,
-    encryption), memory analysis often reveals running processes, network connections,
-    injected code, encryption keys, credentials, and malware that would otherwise be
-    invisible.
 
-    ## Command structure
-    Arguments are passed exactly as you would type them after `vol` on the command line,
-    split into a list — one token per element. Shell operators (|, >, <) are blocked.
+def _run_volatility_pdbconv_command(ctx: Context, arguments: list[str]) -> CommandRecord:
+    return docker_manager.exec_stream(command_list=["pdbconv", *arguments], ctx=ctx)
 
-    Typical form:
-        ["-f", "<path/to/memory.img>", "<Plugin>", "<plugin-options>"]
 
-    Example — list all running processes from a Windows image:
-        ["-f", "/evidence/win10.mem", "windows.pslist.PsList"]
+def _download_windows_pdb(ctx: Context, pdb_name: str, guid: str, age: int) -> str:
+    """Downloads a pdb file and returns the internal path"""
+    guid = guid.replace("-", "")  # Normalize path
+    url = f"{WINDOWS_SYMBOL_SERVER}/{pdb_name}/{guid}{age}/{pdb_name}"
+    ctx.report_progress(f"Pulling symbol from {url}")
+    output_file_name = f'{guid}_{pdb_name}' 
+    external_path = WINDOWS_SYMBOLS_DIRECTORY / "raw" / output_file_name
+    external_path.parent.mkdir(mode=500, parents=True, exist_ok=True)
+    internal_path = f"/symbols/windows/raw/{output_file_name}"
 
-    ## Specifying the memory image (-f)
-    Always pass `-f <image_path>` as the first two arguments unless you are only
-    checking version/help. The image path must be accessible inside the Docker container
-    that runs Volatility. Ask the user for the path if you do not know it.
+    response = requests.get(url)
 
-    ## Plugin naming convention
-    Volatility 3 plugins follow the pattern:  <OS>.<module>.<ClassName>
-      - `windows.*`  — Windows memory images
-      - `linux.*`    — Linux memory images
-      - `mac.*`      — macOS memory images
+    if response.status_code == HTTPStatus.NOT_FOUND:
+        raise RuntimeError(
+            f"PDB not found on symbol server. Check that pdb_name and guid are correct.\nURL attempted: {url}"
+        )
 
-    You can omit the class name suffix and Volatility will resolve it automatically,
-    e.g. `windows.pslist` works the same as `windows.pslist.PsList`.
+    response.raise_for_status()
+    external_path.write_bytes(response.content)
 
-    ## Essential Windows plugins (most common investigations)
+    ctx.report_progress(f"Saved pdb file to {internal_path}")
 
-    ### Process analysis
-    - `windows.pslist`        — List all processes (PID, PPID, name, start time)
-    - `windows.pstree`        — Same data as pslist displayed as a parent/child tree
-    - `windows.psscan`        — Scan pool tags to find processes hidden from pslist (rootkit detection)
-    - `windows.cmdline`       — Command-line arguments for each process
-    - `windows.dlllist`       — DLLs loaded by each process (use --pid to filter)
-    - `windows.handles`       — Open handles (files, registry keys, mutexes) per process
-    - `windows.dumpfiles`     — Extract files from memory (use --physaddr or --virtaddr)
-    - `windows.malfind`       — Find memory regions with RWX permissions and MZ/PE headers — high-signal indicator of injected shellcode or packed malware
+    return internal_path
 
-    ### Network
-    - `windows.netstat`       — Active/recently closed TCP/UDP connections with owning PID
-    - `windows.netscan`       — Pool-tag scan for network structures, finds more connections than netstat
 
-    ### Registry
-    - `windows.registry.hivelist`   — List loaded registry hives and their virtual addresses
-    - `windows.registry.printkey`   — Print keys/values from a hive (use --key to specify path)
-    - `windows.registry.userassist` — Decode UserAssist entries (recently executed programs)
+def download_windows_symbol(
+    ctx: Context, pdb_name: str, guid: str, age: int, overwrite: bool = False
+) -> CommandRecordTruncated:
+    """Downloads windows symbols for volatility to `/symbols`"""
+    
+    # Set correct naming convention and directory tree for volatility parsing
+    output_file_name = f'{guid}-{age}.json.xz'
+    output_file_external_path = WINDOWS_SYMBOLS_DIRECTORY / pdb_name / output_file_name
+    output_file_internal_path = f"/symbols/windows/{pdb_name}/{output_file_name}"
+    if output_file_external_path.exists() and not overwrite:
+        raise RuntimeError(
+            f"File {output_file_internal_path} already exists, it can be used by volatility with the `-s /symbols` "
+            "argument, set overwrite to True to overwrite this file"
+        )
+    else:
+        output_file_external_path.parent.mkdir(mode=500, parents=True, exist_ok=True)
 
-    ### Drivers and kernel
-    - `windows.modules`       — Loaded kernel modules (drivers)
-    - `windows.driverscan`    — Scan for driver objects, finds hidden drivers
-    - `windows.ssdt`          — System Service Descriptor Table — detect SSDT hooks (rootkits)
-    - `windows.callbacks`     — Kernel notification callbacks registered by drivers
+    # Download pdb
+    internal_path = _download_windows_pdb(ctx=ctx, pdb_name=pdb_name, guid=guid, age=age)
 
-    ### Malware / credential hunting
-    - `windows.malfind`       — (see above) primary malware injection detector
-    - `windows.vadinfo`       — Virtual Address Descriptor tree — full memory map of a process
-    - `windows.hashdump`      — Dump NTLM password hashes from the SAM hive
-    - `windows.lsadump`       — Extract LSA secrets from registry
-    - `windows.cachedump`     — Cached domain credentials
+    # Run conversion to symbol file
+    pdbconv_output = _run_volatility_pdbconv_command(
+        ctx=ctx,
+        arguments=["-f", internal_path, "-g", guid, "-o", output_file_internal_path],
+    )
 
-    ### File system artifacts
-    - `windows.filescan`      — Scan for FILE_OBJECT structures (recovers paths of open files)
-    - `windows.mftscan.MFTScan` — Scan for MFT entries (NTFS file records in memory)
+    # Change "unknown.pdb" to correct pdb name
+    data = lzma.decompress(output_file_external_path.read_bytes())
+    data = data.replace(b"unknown.pdb", pdb_name.encode("utf-8"))
+    output_file_external_path.write_bytes(lzma.compress(data))
 
-    ## Essential Linux plugins
-    - `linux.pslist`          — List processes
-    - `linux.psscan`          — Scan for hidden processes
-    - `linux.bash`            — Recover bash history from memory
-    - `linux.netstat`         — Network connections
-    - `linux.lsmod`           — Loaded kernel modules
-    - `linux.check_syscall`   — Detect syscall table hooks
-
-    ## Common flags
-    - `--pid <PID>`           — Filter output to a specific process ID
-    - `--name <pattern>`      — Filter by process name
-    - `--dump`                — Write extracted artifacts to disk (combined with dumpfiles, etc.)
-    - `-o <output_dir>`       — Directory to write dumped files
-    - `--output csv`          — Machine-readable CSV output
-
-    ## Useful utility commands
-    - `["-h"]`                            — Print help and version
-    - `["-f", "image", "-h"]`             — List all available plugins for that image's OS
-    - `["isfinfo"]`                       — Show available Intermediate Symbol Format files
-
-    ## Typical investigative workflow
-    1. Identify the OS: run `windows.info` (or `linux.info`) to confirm image type and build.
-    2. Enumerate processes: `windows.pslist` then `windows.psscan` — compare for hidden entries.
-    3. Check network: `windows.netscan` to find suspicious outbound connections and their owning PID.
-    4. Inspect suspicious process: `windows.cmdline --pid <X>`, `windows.dlllist --pid <X>`, `windows.malfind --pid <X>`.
-    5. Extract artifacts: `windows.dumpfiles` to carve out injected DLLs or suspicious executables.
-    6. Check persistence: `windows.registry.printkey` on Run/RunOnce keys, `windows.hashdump` for credentials.
-    """
-    if re.search(r'(\||>|<)', "".join(arguments)):
-        raise RuntimeError('Invalid character in argument, no ">", "<", or "|" characters are allowed')
-    return docker_manager.exec_stream(command_list=['vol', *arguments], ctx=ctx)
+    return pdbconv_output

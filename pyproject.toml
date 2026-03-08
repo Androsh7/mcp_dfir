@@ -12,12 +12,14 @@ dependencies = [
     "loguru",
     "mcp",
     "python_on_whales",
+    "requests",
 ]
 
 [project.optional-dependencies]
 dev = [
     "mcp[cli]",
     "ruff",
+    "uv",
 ]
 
 [tool.ruff]

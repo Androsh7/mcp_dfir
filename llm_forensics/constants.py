@@ -1,19 +1,28 @@
 """Defines constants"""
 
 # Standard libraries
-import os
 from pathlib import Path
 
 # Directories
 PARENT_DIRECTORY = Path(__file__).parent.parent
 EVIDENCE_DIRECTORY = PARENT_DIRECTORY / "evidence"
-os.makedirs(EVIDENCE_DIRECTORY, mode=500, exist_ok=True)
 ANALYSIS_DIRECTORY = PARENT_DIRECTORY / "analysis"
-os.makedirs(ANALYSIS_DIRECTORY, mode=500, exist_ok=True)
+SYMBOLS_DIRECTORY = PARENT_DIRECTORY / "symbols"
+WINDOWS_SYMBOLS_DIRECTORY = SYMBOLS_DIRECTORY / "windows"
+
+# Volatility symbols
+WINDOWS_SYMBOL_SERVER = "https://msdl.microsoft.com/download/symbols"
+
+# Command list
+COMMAND_LIST_PATH = ANALYSIS_DIRECTORY / "command_list.json"
 
 # Version
 VERSION = "0.1.0"
 
 # Docker
 DOCKER_NAME = "forensics-docker"
-DOCKER_IMAGE = f'{DOCKER_NAME}:{VERSION}'
+DOCKER_IMAGE = f"{DOCKER_NAME}:{VERSION}"
+DOCKER_VOLUME_MOUNTS = {
+    "evidence": {"external_path": EVIDENCE_DIRECTORY, "internal_path": "/evidence", "permissions": "ro"},
+    "symbols": {"external_path": SYMBOLS_DIRECTORY, "internal_path": "/symbols", "permissions": "rw"},
+}
