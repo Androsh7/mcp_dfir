@@ -27,7 +27,7 @@ RUN pip install --upgrade pip setuptools wheel \
 && apt-get remove -y git
 
 # Create analyst user
-RUN useradd -m -d /home analyst \
+RUN useradd -m -d /tools analyst \
 && chown -R analyst:analyst /tools
 USER analyst
 

@@ -3,31 +3,22 @@
 # Standard libraries
 import re
 
-from llm_forensics.data_manager import data_manager
+from llm_forensics.data_manager import command_history_manager
 
 # Third-party libraries
-from llm_forensics.tools.models import CommandRecordTruncated
+from llm_forensics.tools.models import CommandRecordSummary
 
 
-def get_command_history(truncate: int | None = 50) -> list[CommandRecordTruncated]:
-    out_list = []
-    for record in data_manager.command_list:
-        out_list.append(record.truncate(truncate))
-    return out_list
+def get_command_history() -> list[CommandRecordSummary]:
+    return command_history_manager.command_summary_list
 
 
-def get_command_result(command: str, head: int | None, tail: int | None, regex: str | None) -> str:
+def get_command_result(command_number: int, head: int | None, tail: int | None, regex: str | None) -> str:
     if head and tail:
         raise RuntimeError("Cannot set tail and head at the same time")
 
     # Get the command result
-    content = ""
-    for command_record in data_manager.command_list:
-        if command_record.command == command:
-            content = command_record.result
-            break
-    if len(content) == 0:
-        raise RuntimeError(f"Cannot find command: {command} in history")
+    content = command_history_manager.get_command(command_number=command_number).result
 
     # Truncate for head/tail
     if head:

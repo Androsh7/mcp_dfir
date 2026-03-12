@@ -8,7 +8,7 @@ from mcp.server.fastmcp import Context
 
 # Project libraries
 from llm_forensics.docker_manager import docker_manager
-from llm_forensics.tools.models import CommandRecordTruncated
+from llm_forensics.tools.models import CommandRecordSummary
 
 HASHING_ALGORITHMS = [
     "md5",
@@ -20,11 +20,11 @@ HASHING_ALGORITHMS = [
 
 def get_hash(
     ctx: Context, file_path: str, algorithm: Literal["md5", "sha1", "sha256", "sha512"]
-) -> CommandRecordTruncated:
+) -> CommandRecordSummary:
     if algorithm.lower() not in HASHING_ALGORITHMS:
         raise KeyError(
             f'Unsupported hashing algorithm "{algorithm}", this function supports: {", ".join(HASHING_ALGORITHMS)}'
         )
 
     command_list = [f"{algorithm.lower()}sum", file_path]
-    return docker_manager.exec_stream(ctx, command_list, truncate=None)
+    return docker_manager.exec_stream(ctx, command_list)

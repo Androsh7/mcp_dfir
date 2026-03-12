@@ -29,14 +29,10 @@ Before beginning analysis always perform the following tasks:
 3. Review all analyst notes to not perform duplicate analysis
 
 While performing analysis follow these rules:
-1. Everything whether benign or malicious must be documented, including the commands that were run, the research that was done, and the conclusion with sufficient reasoning
+1. Create an analyst note (markdown format) after every finding whether benign, malicious, or if additional research is needed
 2. Never make any assumptions, if a conclusion cannot be reached on whether a finding is benign or malicious explicitly mark it as needing additional research
 3. Never use custom bash or python scripts to parse files, only use the built-in head/tail/regex/truncate options when going through command results
 4. All artifacts should be saved under /artifacts
-
-Rules for documenting analyst notes:
-1. All notes must be in markdown format
-2. Notes should properly document the source of the evidence, the commands that were run, and the research that was done
 """,
 )
 

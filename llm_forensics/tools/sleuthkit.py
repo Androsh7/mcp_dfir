@@ -8,7 +8,7 @@ from mcp.server.fastmcp import Context
 
 # Project libraries
 from llm_forensics.docker_manager import docker_manager
-from llm_forensics.tools.models import CommandRecordTruncated
+from llm_forensics.tools.models import CommandRecordSummary
 
 SLEUTHKIT_COMMANDS = [
     "blkcalc",
@@ -79,7 +79,7 @@ def run_sleuthkit_command(
         "tsk_recover",
     ],
     arguments: list[str],
-) -> CommandRecordTruncated:
+) -> CommandRecordSummary:
     """Run sleuthkit commands for disk forensics: <tool> <arguments>
 
     blkcalc - Converts between unallocated disk unit numbers and regular disk unit numbers.

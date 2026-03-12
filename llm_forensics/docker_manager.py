@@ -8,13 +8,9 @@ from python_on_whales import Container, DockerClient
 from python_on_whales.exceptions import NoSuchContainer
 
 # Project libraries
-from llm_forensics.constants import (
-    DOCKER_IMAGE,
-    DOCKER_NAME,
-    DOCKER_VOLUME_MOUNTS,
-)
-from llm_forensics.data_manager import data_manager
-from llm_forensics.tools.models import CommandRecord, CommandRecordTruncated
+from llm_forensics.config import config
+from llm_forensics.data_manager import command_history_manager
+from llm_forensics.tools.models import CommandRecord, CommandRecordSummary
 
 
 @define
@@ -30,26 +26,26 @@ class DockerManager:
         logger.info("Starting forensics docker container")
 
         try:
-            self.container = self.docker.container.inspect(DOCKER_NAME)
+            self.container = self.docker.container.inspect(config.docker_config.container_name)
 
             if self.container.state.running:
                 logger.info("Forensics container already running")
                 return
 
             logger.info("Forensics container exists but is stopped, starting it")
-            self.docker.container.start(DOCKER_NAME)
+            self.docker.container.start(config.docker_config.container_name)
             return
 
         except NoSuchContainer:
             logger.info("Forensics container does not exist, creating one")
 
         volumes = [
-            (volume_mount["external_path"], volume_mount["internal_path"], volume_mount["permissions"])
-            for volume_mount in list(DOCKER_VOLUME_MOUNTS.values())
+            (volume_mount.external_path, volume_mount.internal_path, volume_mount.permissions)
+            for volume_mount in list(config.docker_volumes)
         ]
         self.container = self.docker.run(
-            DOCKER_IMAGE,
-            name=DOCKER_NAME,
+            config.docker_config.image_name,
+            name=config.docker_config.container_name,
             detach=True,
             remove=False,
             volumes=volumes,
@@ -61,12 +57,12 @@ class DockerManager:
             logger.info("Stopping forensics docker container")
             self.container.stop()
 
-    def exec_stream(self, ctx: Context, command_list: list[str], truncate: int | None = 50) -> CommandRecordTruncated:
+    def exec_stream(self, ctx: Context, command_list: list[str]) -> CommandRecordSummary:
         if self.container is None:
             raise RuntimeError("No docker container is currently running")
 
         ctx.report_progress(f"Running command {' '.join(command_list)}")
-        return data_manager.add_command(
+        return command_history_manager.add_command(
             CommandRecord(
                 command=" ".join(command_list),
                 result=self.docker.execute(
@@ -74,7 +70,7 @@ class DockerManager:
                     command_list,
                 ),
             )
-        ).truncate(truncate)
+        )
 
 
 docker_manager = DockerManager()

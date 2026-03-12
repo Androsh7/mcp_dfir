@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "llm_forensics"
 version = "0.1.0"
 description = "MCP server for enabling LLM forensics"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
     "attrs",
     "loguru",

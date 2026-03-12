@@ -18,13 +18,10 @@ def date_as_str() -> str:
     return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
 
-class CommandRecordTruncated(BaseModel):
+class CommandRecordSummary(BaseModel):
+    number: int = Field(examples=[1])
     command: str = Field(examples=["vol -f capture.mem linux.pslist"])
     date_run: str = Field(default_factory=date_as_str, examples=["01/01/2024 12:00:00"])
-    result: str = Field(
-        examples=["Volatility 3 Framework 2.27.0\n\nPID\tPPID\tImageFileName\tOffset(V)..."],
-    )
-
 
 class CommandRecord(BaseModel):
     command: str = Field(examples=["vol -f capture.mem linux.pslist"])
@@ -36,11 +33,11 @@ class CommandRecord(BaseModel):
         ],
     )
 
-    def truncate(self, length: int | None) -> CommandRecordTruncated:
-        return CommandRecordTruncated(
+    def summary(self, number: int) -> CommandRecordSummary:
+        return CommandRecordSummary(
+            number=number,
             command=self.command,
             date_run=self.date_run,
-            result=f"{self.result[:length]}..." if length else self.result,
         )
 
 
