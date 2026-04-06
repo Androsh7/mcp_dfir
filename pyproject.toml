@@ -17,8 +17,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "build",
     "mcp[cli]",
     "ruff",
+    "twine",
     "uv",
 ]
 
@@ -37,7 +39,7 @@ select = [
 max-line-length = 120
 
 [project.scripts]
-llm-forensics = "llm_forensics.runner:main"
+mcp-dfir = "mcp_dfir.runner:main"
 
 [tool.setuptools]
-packages = ["llm_forensics", "llm_forensics.tools"]
+packages = ["mcp_dfir", "mcp_dfir.tools"]

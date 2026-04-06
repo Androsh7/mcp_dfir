@@ -7,6 +7,7 @@ MCP DFIR (Digital Forensics Incident Response) is an MCP server that gives AI ag
 - Memory forensics via [Volatility3](https://github.com/volatilityfoundation/volatility3)
 - Disk forensics via [The Sleuth Kit](https://www.sleuthkit.org/)
 - File search with `strings`, `grep`, and `find`
+- Archive extraction with `unzip` and `tar`
 - Automatic Windows symbol downloading and conversion
 - Persistent command history — the agent never re-runs commands already completed
 - Analyst notes — the agent records findings in structured markdown notes
@@ -14,6 +15,12 @@ MCP DFIR (Digital Forensics Incident Response) is an MCP server that gives AI ag
 # Requirements
 
 - [Docker](https://www.docker.com/) must be installed and running
+
+# Installation
+
+```bash
+pip install mcp-dfir
+```
 
 # Setup
 
@@ -24,9 +31,9 @@ Add the following to your Claude Desktop `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "llm-forensics": {
-      "command": "python3",
-      "args": ["-m", "llm_forensics", "--case-dir", "/path/to/your/case"]
+    "mcp-dfir": {
+      "command": "mcp-dfir",
+      "args": ["--case-dir", "/path/to/your/case"]
     }
   }
 }
@@ -51,7 +58,7 @@ Place all evidence files (`.mem`, `.img`, `.e01`, etc.) inside the `evidence/` d
 # Args
 
 ```
-usage: llm_forensics [-h] [--version] [-d CASE_DIR]
+usage: mcp-dfir [-h] [--version] [-d CASE_DIR]
 
 options:
   -h, --help            show this help message and exit
@@ -71,6 +78,8 @@ options:
 | `run_grep`                   | Runs `grep` on files                                       |
 | `run_find`                   | Runs `find` to search for files                            |
 | `list_files`                 | Lists files in `evidence`, `artifacts`, or `symbols`       |
+| `unzip_file`                 | Extracts a zip archive into `/artifacts`                   |
+| `untar_file`                 | Extracts a tar archive into `/artifacts`                   |
 | `get_hash`                   | Computes a hash of a file                                  |
 | `get_command_history`        | Returns all previously run commands                        |
 | `get_command_result`         | Returns the output of a specific past command              |
@@ -94,5 +103,7 @@ source .venv/bin/activate
 pip install .[dev]
 
 # Run
-python3 -m llm_forensics --case-dir /path/to/your/case
+mcp-dfir --case-dir /path/to/your/case
+# or
+python3 -m mcp_dfir --case-dir /path/to/your/case
 ```
