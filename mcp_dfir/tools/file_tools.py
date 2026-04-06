@@ -8,9 +8,9 @@ from typing import Literal
 from mcp.server.fastmcp import Context
 
 # Project libraries
-from mcp_dfir.config import config
 from mcp_dfir.docker_manager import docker_manager
-from mcp_dfir.tools.models import CommandRecordSummary, FileDetails
+from mcp_dfir.tools.models import CommandRecordSummary
+
 
 def unzip_file(ctx: Context, source_file: str, destination_dir: str) -> CommandRecordSummary:
     """Runs: unzip -X -K <SOURCE_FILE> -d /artifacts/<DESTINATION_FILE_NAME>"""
@@ -22,6 +22,7 @@ def unzip_file(ctx: Context, source_file: str, destination_dir: str) -> CommandR
         raise RuntimeError("Destination directory must be in /artifacts")
     return docker_manager.exec_stream(ctx=ctx, command_list=["unzip", "-X", "-K", source_file, "-d", destination_dir])
 
+
 TAR_COMPRESSION_FLAGS = {
     "gz": "--gzip",
     "bz2": "--bzip2",
@@ -32,7 +33,13 @@ TAR_COMPRESSION_FLAGS = {
     "zstd": "--zstd",
 }
 
-def untar_file(ctx: Context, source_file: str, destination_dir: str, compression: None | Literal["gz", "bz2", "xz", "lzip", "lzma", "lzop", "zstd"] = None) -> CommandRecordSummary:
+
+def untar_file(
+    ctx: Context,
+    source_file: str,
+    destination_dir: str,
+    compression: None | Literal["gz", "bz2", "xz", "lzip", "lzma", "lzop", "zstd"] = None,
+) -> CommandRecordSummary:
     """Runs: tar -xf <SOURCE_FILE> -C /artifacts/<DESTINATION_FILE_NAME>"""
     if source_file.find("..") != -1 or destination_dir.find("..") != -1:
         raise RuntimeError("Invalid file path, Path traversal is not allowed")
@@ -43,6 +50,8 @@ def untar_file(ctx: Context, source_file: str, destination_dir: str, compression
     if compression is None:
         return docker_manager.exec_stream(ctx=ctx, command_list=["tar", "-xf", source_file, "-C", destination_dir])
     if compression in TAR_COMPRESSION_FLAGS:
-        return docker_manager.exec_stream(ctx=ctx, command_list=["tar", "-x", TAR_COMPRESSION_FLAGS[compression], source_file, "-C", destination_dir])
+        return docker_manager.exec_stream(
+            ctx=ctx, command_list=["tar", "-x", TAR_COMPRESSION_FLAGS[compression], source_file, "-C", destination_dir]
+        )
     else:
         raise ValueError(f"Unsupported compression type, {compression} is not supported")

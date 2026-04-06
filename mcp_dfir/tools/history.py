@@ -3,9 +3,8 @@
 # Standard libraries
 import re
 
-from mcp_dfir.data_manager import command_history_manager
-
 # Third-party libraries
+from mcp_dfir.data_manager import command_history_manager
 from mcp_dfir.tools.models import CommandRecordSummary
 
 

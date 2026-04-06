@@ -12,7 +12,7 @@ from mcp.server.fastmcp import Context
 from mcp_dfir.config import config
 from mcp_dfir.constants import WINDOWS_SYMBOL_SERVER
 from mcp_dfir.docker_manager import docker_manager
-from mcp_dfir.tools.models import CommandRecord, CommandRecordSummary
+from mcp_dfir.tools.models import CommandRecordSummary
 
 
 def run_volatility_command(ctx: Context, arguments: list[str]) -> CommandRecordSummary:

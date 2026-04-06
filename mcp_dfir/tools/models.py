@@ -23,6 +23,7 @@ class CommandRecordSummary(BaseModel):
     command: str = Field(examples=["vol -f capture.mem linux.pslist"])
     date_run: str = Field(default_factory=date_as_str, examples=["01/01/2024 12:00:00"])
 
+
 class CommandRecord(BaseModel):
     command: str = Field(examples=["vol -f capture.mem linux.pslist"])
     date_run: str = Field(default_factory=date_as_str, examples=["01/01/2024 12:00:00"])

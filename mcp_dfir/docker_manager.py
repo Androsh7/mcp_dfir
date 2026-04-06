@@ -57,6 +57,13 @@ class DockerManager:
             logger.info("Stopping forensics docker container")
             self.container.stop()
 
+    def clear_forensic_container(self):
+        if self.container is not None:
+            logger.info("Clearing forensics docker container")
+            self.container.stop()
+            self.container.remove()
+            self.container = None
+
     def exec_stream(self, ctx: Context, command_list: list[str]) -> CommandRecordSummary:
         if self.container is None:
             raise RuntimeError("No docker container is currently running")

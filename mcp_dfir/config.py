@@ -17,14 +17,16 @@ class DockerVolume:
     external_path: Path = field(validator=validators.instance_of(Path))
     permissions: str = field(validator=validators.instance_of(str))
 
+
 @define
 class DockerConfig:
     container_name: str = field(validator=validators.instance_of(str))
     image_name: str = field(validator=validators.instance_of(str))
 
+
 @define
 class Config:
-    working_directory: Path = field(default=Path.cwd(),validator=validators.instance_of(Path))
+    working_directory: Path = field(default=Path.cwd(), validator=validators.instance_of(Path))
 
     # Directories
     analysis_directory: Path = field(init=False, validator=validators.instance_of(Path))
@@ -35,11 +37,11 @@ class Config:
     # Command history
     command_history_json: Path = field(init=False, validator=validators.instance_of(Path))
     command_record_directory: Path = field(init=False, validator=validators.instance_of(Path))
-    
+
     # Analyst notes
     analyst_notes_list_json: Path = field(init=False, validator=validators.instance_of(Path))
     analyst_notes_directory: Path = field(init=False, validator=validators.instance_of(Path))
-    
+
     # Docker
     docker_volumes: list[DockerVolume] = field(
         init=False,
@@ -61,18 +63,30 @@ class Config:
         # Command history
         self.command_history_json = self.analysis_directory / "command_history.json"
         self.command_record_directory = self.analysis_directory / "command_history"
-        
+
         # Analyst notes
         self.analyst_notes_list_json = self.analysis_directory / "analyst_notes.json"
         self.analyst_notes_directory = self.analysis_directory / "analyst_notes"
 
         # Docker
         self.docker_volumes = [
-            DockerVolume(name="evidence", internal_path="/evidence", external_path=self.evidence_directory, permissions="ro"),
-            DockerVolume(name="analysis", internal_path="/analysis", external_path=self.analysis_directory, permissions="ro"),
-            DockerVolume(name="symbols", internal_path="/symbols", external_path=self.symbols_directory, permissions="rw"),
-            DockerVolume(name="artifacts", internal_path="/artifacts", external_path=self.artifact_directory, permissions="rw"),
+            DockerVolume(
+                name="evidence", internal_path="/evidence", external_path=self.evidence_directory, permissions="ro"
+            ),
+            DockerVolume(
+                name="analysis", internal_path="/analysis", external_path=self.analysis_directory, permissions="ro"
+            ),
+            DockerVolume(
+                name="symbols", internal_path="/symbols", external_path=self.symbols_directory, permissions="rw"
+            ),
+            DockerVolume(
+                name="artifacts", internal_path="/artifacts", external_path=self.artifact_directory, permissions="rw"
+            ),
         ]
-        self.docker_config = DockerConfig(container_name=f'{self.working_directory.name.replace(" ", "_")}-forensics', image_name=f'androsh7/forensics-docker:{VERSION}')
+        self.docker_config = DockerConfig(
+            container_name=f"{self.working_directory.name.replace(' ', '_')}-forensics",
+            image_name=f"androsh7/forensics-docker:{VERSION}",
+        )
+
 
 config = Config()

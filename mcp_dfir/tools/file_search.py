@@ -15,7 +15,7 @@ from mcp_dfir.tools.models import CommandRecordSummary, FileDetails
 
 def list_files(path: Literal["artifacts", "symbols", "evidence"]) -> list[FileDetails]:
     valid_paths = [volume.name for volume in config.docker_volumes]
-    
+
     # Select volume
     selected_volume = None
     for volume in config.docker_volumes:
@@ -24,12 +24,14 @@ def list_files(path: Literal["artifacts", "symbols", "evidence"]) -> list[FileDe
             break
     if selected_volume is None:
         raise RuntimeError(f"Invalid path {path}, valid paths are {valid_paths}")
-    
+
     out_list = []
     for dir_path, _, file_name_list in selected_volume.external_path.walk():
         for file_name in file_name_list:
             external_file_path = Path(dir_path / file_name)
-            internal_file_path = f"/{path}/{str(external_file_path.relative_to(selected_volume.external_path)).replace('\\', '/')}"
+            internal_file_path = (
+                f"/{path}/{str(external_file_path.relative_to(selected_volume.external_path)).replace('\\', '/')}"
+            )
             out_list.append(
                 FileDetails(
                     name=file_name,

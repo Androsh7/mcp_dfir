@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 
 # Project libraries
 from mcp_dfir.config import config
-from mcp_dfir.tools.models import AnalystNote, CommandRecord, CommandRecordSummary, AnalystNoteSummary
+from mcp_dfir.tools.models import AnalystNote, AnalystNoteSummary, CommandRecord, CommandRecordSummary
 
 
 class CommandHistoryManager(BaseModel):
@@ -31,7 +31,9 @@ class CommandHistoryManager(BaseModel):
 
         # Write to command file
         if command is not None and command_number is not None:
-            with open(file=config.command_record_directory / f'{command_number}.txt', mode="w", encoding="utf-8") as command_file:
+            with open(
+                file=config.command_record_directory / f"{command_number}.txt", mode="w", encoding="utf-8"
+            ) as command_file:
                 command_file.write(command.result)
 
     def load(self):
@@ -49,13 +51,14 @@ class CommandHistoryManager(BaseModel):
     def get_command(self, command_number: int) -> CommandRecord:
         for command in self.command_summary_list:
             if command.number == command_number:
-                with open(file=config.command_record_directory / f'{command_number}.txt', mode="r", encoding="utf-8") as file:
+                with open(file=config.command_record_directory / f"{command_number}.txt", encoding="utf-8") as file:
                     return CommandRecord(
                         command=command.command,
                         date_run=command.date_run,
                         result=file.read(),
                     )
         raise KeyError(f"Could not find command with number {command_number}")
+
 
 class AnalystNoteManager(BaseModel):
     note_list: list[AnalystNoteSummary] = Field(default_factory=list, init=False)
@@ -76,7 +79,9 @@ class AnalystNoteManager(BaseModel):
 
         # Write to note file
         if note is not None:
-            with open(file=config.analyst_notes_directory / f'{note.title}.md', mode="w", encoding="utf-8") as note_file:
+            with open(
+                file=config.analyst_notes_directory / f"{note.title}.md", mode="w", encoding="utf-8"
+            ) as note_file:
                 note_file.write(note.description)
 
     def load(self):
@@ -100,14 +105,12 @@ class AnalystNoteManager(BaseModel):
     def get_note(self, title: str) -> AnalystNote:
         for note in self.note_list:
             if note.title == title:
-                with open(file=config.analyst_notes_directory / f'{title}.md', mode="r", encoding="utf-8") as note_file:
+                with open(file=config.analyst_notes_directory / f"{title}.md", encoding="utf-8") as note_file:
                     return AnalystNote(
-                        title=note.title,
-                        status=note.status,
-                        tags=note.tags,
-                        description=note_file.read()
+                        title=note.title, status=note.status, tags=note.tags, description=note_file.read()
                     )
         raise KeyError(f"No note with title '{title}'")
+
 
 command_history_manager = CommandHistoryManager()
 analyst_note_manager = AnalystNoteManager()
