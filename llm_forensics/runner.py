@@ -8,7 +8,8 @@ from pathlib import Path
 from llm_forensics.constants import VERSION
 from llm_forensics.config import config
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(prog="llm_forensics")
     parser.add_argument("--version", action="version", version=f"llm_forensics v{VERSION}")
     parser.add_argument("-d", "--case-dir", type=Path, default=Path.cwd(), help=f"Working directory for the case, default: {Path.cwd()}")
@@ -29,3 +30,7 @@ if __name__ == "__main__":
         pass
     finally:
         docker_manager.stop_forensic_container()
+
+
+if __name__ == "__main__":
+    main()
