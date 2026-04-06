@@ -5,6 +5,7 @@ from mcp.server.fastmcp import FastMCP
 
 # Project libraries
 from llm_forensics.tools.file_search import list_files, run_find, run_grep, run_strings
+from llm_forensics.tools.file_tools import untar_file, unzip_file
 from llm_forensics.tools.hash import get_hash
 from llm_forensics.tools.history import get_command_history, get_command_result
 from llm_forensics.tools.notes import (
@@ -41,6 +42,10 @@ mcp.add_tool(list_files)
 mcp.add_tool(run_strings)
 mcp.add_tool(run_grep)
 mcp.add_tool(run_find)
+
+# File tools
+mcp.add_tool(unzip_file)
+mcp.add_tool(untar_file)
 
 # Hash
 mcp.add_tool(get_hash)
