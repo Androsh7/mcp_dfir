@@ -8,9 +8,9 @@ from typing import Literal
 from mcp.server.fastmcp import Context
 
 # Project libraries
-from llm_forensics.config import config
-from llm_forensics.docker_manager import docker_manager
-from llm_forensics.tools.models import CommandRecordSummary, FileDetails
+from mcp_dfir.config import config
+from mcp_dfir.docker_manager import docker_manager
+from mcp_dfir.tools.models import CommandRecordSummary, FileDetails
 
 
 def list_files(path: Literal["artifacts", "symbols", "evidence"]) -> list[FileDetails]:

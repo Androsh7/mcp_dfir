@@ -4,18 +4,18 @@
 from mcp.server.fastmcp import FastMCP
 
 # Project libraries
-from llm_forensics.tools.file_search import list_files, run_find, run_grep, run_strings
-from llm_forensics.tools.file_tools import untar_file, unzip_file
-from llm_forensics.tools.hash import get_hash
-from llm_forensics.tools.history import get_command_history, get_command_result
-from llm_forensics.tools.notes import (
+from mcp_dfir.tools.file_search import list_files, run_find, run_grep, run_strings
+from mcp_dfir.tools.file_tools import untar_file, unzip_file
+from mcp_dfir.tools.hash import get_hash
+from mcp_dfir.tools.history import get_command_history, get_command_result
+from mcp_dfir.tools.notes import (
     add_analyst_note,
     show_analyst_note,
     show_analyst_notes_summary,
     update_analyst_note,
 )
-from llm_forensics.tools.sleuthkit import run_sleuthkit_command
-from llm_forensics.tools.volatility import download_windows_symbol, run_volatility_command
+from mcp_dfir.tools.sleuthkit import run_sleuthkit_command
+from mcp_dfir.tools.volatility import download_windows_symbol, run_volatility_command
 
 # Create MCP server
 mcp = FastMCP(

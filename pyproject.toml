@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llm_forensics"
+name = "mcp-dfir"
 version = "0.1.0"
-description = "MCP server for enabling LLM forensics"
+description = "MCP Server for Performing Memory and Disk Forensics"
 requires-python = ">=3.11"
 dependencies = [
     "attrs",

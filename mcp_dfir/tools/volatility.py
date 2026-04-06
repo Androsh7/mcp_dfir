@@ -9,10 +9,10 @@ import requests
 from mcp.server.fastmcp import Context
 
 # Project libraries
-from llm_forensics.config import config
-from llm_forensics.constants import WINDOWS_SYMBOL_SERVER
-from llm_forensics.docker_manager import docker_manager
-from llm_forensics.tools.models import CommandRecord, CommandRecordSummary
+from mcp_dfir.config import config
+from mcp_dfir.constants import WINDOWS_SYMBOL_SERVER
+from mcp_dfir.docker_manager import docker_manager
+from mcp_dfir.tools.models import CommandRecord, CommandRecordSummary
 
 
 def run_volatility_command(ctx: Context, arguments: list[str]) -> CommandRecordSummary:

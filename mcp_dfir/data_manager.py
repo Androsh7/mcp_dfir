@@ -7,8 +7,8 @@ import json
 from pydantic import BaseModel, Field
 
 # Project libraries
-from llm_forensics.config import config
-from llm_forensics.tools.models import AnalystNote, CommandRecord, CommandRecordSummary, AnalystNoteSummary
+from mcp_dfir.config import config
+from mcp_dfir.tools.models import AnalystNote, CommandRecord, CommandRecordSummary, AnalystNoteSummary
 
 
 class CommandHistoryManager(BaseModel):

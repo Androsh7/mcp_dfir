@@ -8,9 +8,9 @@ from python_on_whales import Container, DockerClient
 from python_on_whales.exceptions import NoSuchContainer
 
 # Project libraries
-from llm_forensics.config import config
-from llm_forensics.data_manager import command_history_manager
-from llm_forensics.tools.models import CommandRecord, CommandRecordSummary
+from mcp_dfir.config import config
+from mcp_dfir.data_manager import command_history_manager
+from mcp_dfir.tools.models import CommandRecord, CommandRecordSummary
 
 
 @define

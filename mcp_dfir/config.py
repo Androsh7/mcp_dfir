@@ -7,7 +7,7 @@ from pathlib import Path
 from attrs import define, field, validators
 
 # Project libraries
-from llm_forensics.constants import VERSION
+from mcp_dfir.constants import VERSION
 
 
 @define

@@ -7,8 +7,8 @@ from typing import Literal
 from mcp.server.fastmcp import Context
 
 # Project libraries
-from llm_forensics.docker_manager import docker_manager
-from llm_forensics.tools.models import CommandRecordSummary
+from mcp_dfir.docker_manager import docker_manager
+from mcp_dfir.tools.models import CommandRecordSummary
 
 SLEUTHKIT_COMMANDS = [
     "blkcalc",

@@ -5,13 +5,13 @@ import argparse
 from pathlib import Path
 
 # Project libraries
-from llm_forensics.constants import VERSION
-from llm_forensics.config import config
+from mcp_dfir.constants import VERSION
+from mcp_dfir.config import config
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="llm_forensics")
-    parser.add_argument("--version", action="version", version=f"llm_forensics v{VERSION}")
+    parser = argparse.ArgumentParser(prog="mcp-dfir", description="MCP Server for Performing Memory and Disk Forensics")
+    parser.add_argument("--version", action="version", version=f"MCP DFIR v{VERSION}")
     parser.add_argument("-d", "--case-dir", type=Path, default=Path.cwd(), help=f"Working directory for the case, default: {Path.cwd()}")
     args = parser.parse_args()
 
@@ -19,8 +19,8 @@ def main():
     config.load(working_directory=args.case_dir)
 
     # Load MCP server
-    from llm_forensics.docker_manager import docker_manager
-    from llm_forensics.server import mcp
+    from mcp_dfir.docker_manager import docker_manager
+    from mcp_dfir.server import mcp
 
     # Start the mcp server
     docker_manager.start_forensic_container()

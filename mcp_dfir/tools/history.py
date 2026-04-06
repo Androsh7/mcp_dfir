@@ -3,10 +3,10 @@
 # Standard libraries
 import re
 
-from llm_forensics.data_manager import command_history_manager
+from mcp_dfir.data_manager import command_history_manager
 
 # Third-party libraries
-from llm_forensics.tools.models import CommandRecordSummary
+from mcp_dfir.tools.models import CommandRecordSummary
 
 
 def get_command_history() -> list[CommandRecordSummary]:

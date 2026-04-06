@@ -1,8 +1,8 @@
 """Defines the notes mcp routes"""
 
 # Project libraries
-from llm_forensics.data_manager import analyst_note_manager
-from llm_forensics.tools.models import AnalystNote, AnalystNoteSummary
+from mcp_dfir.data_manager import analyst_note_manager
+from mcp_dfir.tools.models import AnalystNote, AnalystNoteSummary
 
 
 def show_analyst_notes_summary() -> list[AnalystNoteSummary]:
