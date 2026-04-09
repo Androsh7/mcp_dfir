@@ -42,6 +42,11 @@ class Config:
     analyst_notes_list_json: Path = field(init=False, validator=validators.instance_of(Path))
     analyst_notes_directory: Path = field(init=False, validator=validators.instance_of(Path))
 
+    # Symbols
+    windows_symbols_directory: Path = field(init=False, validator=validators.instance_of(Path))
+    linux_symbols_directory: Path = field(init=False, validator=validators.instance_of(Path))
+    linux_symbol_map_json: Path = field(init=False, validator=validators.instance_of(Path))
+
     # Docker
     docker_volumes: list[DockerVolume] = field(
         init=False,
@@ -67,6 +72,11 @@ class Config:
         # Analyst notes
         self.analyst_notes_list_json = self.analysis_directory / "analyst_notes.json"
         self.analyst_notes_directory = self.analysis_directory / "analyst_notes"
+
+        # Symbols
+        self.windows_symbols_directory = self.symbols_directory / "windows"
+        self.linux_symbols_directory = self.symbols_directory / "linux"
+        self.linux_symbol_map_json = self.linux_symbols_directory / "symbol_map.json"
 
         # Docker
         self.docker_volumes = [

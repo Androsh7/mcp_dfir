@@ -18,7 +18,7 @@ class CommandHistoryManager(BaseModel):
         # Load commands
         if config.command_history_json.exists():
             self.load()
-        config.command_record_directory.mkdir(mode=500, exist_ok=True)
+        config.command_record_directory.mkdir(mode=500, parents=True, exist_ok=True)
 
     def dump(self, command: CommandRecord | None, command_number: int | None = None):
         # Write to command history

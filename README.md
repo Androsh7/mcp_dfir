@@ -32,14 +32,11 @@ Add the following to your Claude Desktop `claude_desktop_config.json`:
 {
   "mcpServers": {
     "mcp-dfir": {
-      "command": "mcp-dfir",
-      "args": ["--case-dir", "/path/to/your/case"]
+      "command": "mcp-dfir"
     }
   }
 }
 ```
-
-Replace `/path/to/your/case` with the directory containing your evidence files (see [Case Directory Layout](#case-directory-layout) below).
 
 ## Case directory layout
 

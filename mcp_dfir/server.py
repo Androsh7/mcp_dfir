@@ -15,7 +15,12 @@ from mcp_dfir.tools.notes import (
     update_analyst_note,
 )
 from mcp_dfir.tools.sleuthkit import run_sleuthkit_command
-from mcp_dfir.tools.volatility import download_windows_symbol, run_volatility_command
+from mcp_dfir.tools.volatility import (
+    download_linux_symbol,
+    download_windows_symbol,
+    run_volatility_command,
+    search_linux_symbols,
+)
 
 # Create MCP server
 mcp = FastMCP(
@@ -57,6 +62,8 @@ mcp.add_tool(get_command_result)
 # Volatility
 mcp.add_tool(run_volatility_command)
 mcp.add_tool(download_windows_symbol)
+mcp.add_tool(download_linux_symbol)
+mcp.add_tool(search_linux_symbols)
 
 # Sleuthkit
 mcp.add_tool(run_sleuthkit_command)
