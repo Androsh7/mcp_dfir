@@ -14,8 +14,9 @@ from pydantic import BaseModel, Field
 # Project libraries
 from mcp_dfir.config import config
 from mcp_dfir.constants import LINUX_SYMBOL_MAP_SOURCE, LINUX_SYMBOL_REPO_BASE_URL, WINDOWS_SYMBOL_SERVER
+from mcp_dfir.data_manager import command_history_manager
 from mcp_dfir.docker_manager import docker_manager
-from mcp_dfir.tools.models import CommandRecordSummary
+from mcp_dfir.tools.models import CommandRecord, CommandRecordSummary
 
 
 def run_volatility_command(ctx: Context, arguments: list[str]) -> CommandRecordSummary:
@@ -101,7 +102,7 @@ class SymbolSearchResult(BaseModel):
     )
 
 
-def search_linux_symbols(ctx: Context, regex: str) -> list[SymbolSearchResult]:
+def search_linux_symbols(ctx: Context, regex: str) -> CommandRecordSummary:
     """Load linux symbol map from Abyss-W4tcher/volatility3-symbols and search for symbols matching the regex"""
 
     # Download symbol map if it doesn't exist
@@ -122,10 +123,15 @@ def search_linux_symbols(ctx: Context, regex: str) -> list[SymbolSearchResult]:
         if re.search(regex, symbol_name):
             out_list.append(SymbolSearchResult(symbol_name=symbol_name, file_path_list=file_path_list))
 
-    return out_list
+    return command_history_manager.add_command(
+        CommandRecord(
+            command=f'mcp_dfir:tools:volatility:search_linux_symbols(regex="{regex}")',
+            result=json.dumps(out_list, indent=4),
+        )
+    )
 
 
-def download_linux_symbol(ctx: Context, symbol_path: str) -> str:
+def download_linux_symbol(ctx: Context, symbol_path: str) -> CommandRecordSummary:
     """Download a symbol map from the Abyss-W4tcher/volatility3-symbols repository"""
 
     # Download json file from repo
@@ -140,4 +146,9 @@ def download_linux_symbol(ctx: Context, symbol_path: str) -> str:
     file_path = config.linux_symbols_directory / file_name
     file_path.write_bytes(response.content)
 
-    return f"Successfully downloaded symbol file {file_name} ({file_path.stat().st_size} bytes) from {url}"
+    return command_history_manager.add_command(
+        CommandRecord(
+            command=f'mcp_dfir:tools:volatility:download_linux_symbol(symbol_path="{symbol_path}")',
+            result=f"Successfully downloaded symbol file {file_name} ({file_path.stat().st_size} bytes) from {url}",
+        )
+    )
