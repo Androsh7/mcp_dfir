@@ -13,7 +13,15 @@ def get_command_history() -> list[CommandRecordSummary]:
     return command_history_manager.command_summary_list
 
 
-def get_command_result(command_number: int, head: int | None, head_bytes: int | None, tail: int | None, tail_bytes: int | None, regex: str | None, byte_limit = COMMAND_MAX_OUTPUT_BYTES) -> str:
+def get_command_result(
+    command_number: int,
+    head: int | None,
+    head_bytes: int | None,
+    tail: int | None,
+    tail_bytes: int | None,
+    regex: str | None,
+    byte_limit=COMMAND_MAX_OUTPUT_BYTES,
+) -> str:
     """Allows for parsing of the command result
 
     Args:
@@ -24,7 +32,7 @@ def get_command_result(command_number: int, head: int | None, head_bytes: int | 
         tail_bytes: The number of bytes to read from the end (Applied after running head/tail)
         regex: An optional regex search
         byte_limit: The maximum number of bytes in the output before throwing an error (set to None to bypass the limit)
-    
+
     Returns:
         The command result
     """

@@ -19,6 +19,7 @@ dependencies = [
 dev = [
     "build",
     "mcp[cli]",
+    "pytest",
     "ruff",
     "twine",
     "uv",
