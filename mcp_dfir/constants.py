@@ -1,6 +1,6 @@
 """Defines constants"""
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 
 # Volatility symbols
 WINDOWS_SYMBOL_SERVER = "https://msdl.microsoft.com/download/symbols"
