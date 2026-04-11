@@ -2,6 +2,8 @@
 
 MCP DFIR (Digital Forensics Incident Response) is an MCP server that gives AI agents the tools to perform memory, disk, and artifact forensics. It runs forensics tools inside an isolated Docker container and exposes them over the MCP stdio transport.
 
+[Example report](/examples/tryhackme_volatility/analysis/analyst_notes/Case%20002%20-%20Complete%20Incident%20Analysis%20Report.md) based on the TryHackMe Volatility Essentials room.
+
 # Features
 
 - Memory forensics via [Volatility3](https://github.com/volatilityfoundation/volatility3)
@@ -67,26 +69,26 @@ options:
 
 # MCP Tools
 
-| Tool                         | Description                                                |
-| ---------------------------- | ---------------------------------------------------------- |
-| `run_volatility_command`     | Runs Volatility3 (`vol`) for memory forensics              |
-| `download_windows_symbol`    | Downloads and converts Windows PDB symbols for Volatility3 |
+| Tool                         | Description                                                          |
+| ---------------------------- | -------------------------------------------------------------------- |
+| `run_volatility_command`     | Runs Volatility3 (`vol`) for memory forensics                        |
+| `download_windows_symbol`    | Downloads and converts Windows PDB symbols for Volatility3           |
 | `download_linux_symbol`      | Downloads a Linux symbol file from Abyss-W4tcher/volatility3-symbols |
 | `search_linux_symbols`       | Searches the Linux symbol map by regex to find matching symbol files |
-| `run_sleuthkit_command`      | Runs any Sleuth Kit tool for disk forensics                |
-| `run_strings`                | Runs `strings` on a file                                   |
-| `run_grep`                   | Runs `grep` on files                                       |
-| `run_find`                   | Runs `find` to search for files                            |
-| `list_files`                 | Lists files in `evidence`, `artifacts`, or `symbols`       |
-| `unzip_file`                 | Extracts a zip archive into `/artifacts`                   |
-| `untar_file`                 | Extracts a tar archive into `/artifacts`                   |
-| `get_hash`                   | Computes a hash of a file                                  |
-| `get_command_history`        | Returns all previously run commands                        |
-| `get_command_result`         | Returns the output of a specific past command              |
-| `show_analyst_notes_summary` | Lists all analyst notes                                    |
-| `show_analyst_note`          | Retrieves the content of a specific analyst note           |
-| `add_analyst_note`           | Creates a new analyst note                                 |
-| `update_analyst_note`        | Updates an existing analyst note                           |
+| `run_sleuthkit_command`      | Runs any Sleuth Kit tool for disk forensics                          |
+| `run_strings`                | Runs `strings` on a file                                             |
+| `run_grep`                   | Runs `grep` on files                                                 |
+| `run_find`                   | Runs `find` to search for files                                      |
+| `list_files`                 | Lists files in `evidence`, `artifacts`, or `symbols`                 |
+| `unzip_file`                 | Extracts a zip archive into `/artifacts`                             |
+| `untar_file`                 | Extracts a tar archive into `/artifacts`                             |
+| `get_hash`                   | Computes a hash of a file                                            |
+| `get_command_history`        | Returns all previously run commands                                  |
+| `get_command_result`         | Returns the output of a specific past command                        |
+| `show_analyst_notes_summary` | Lists all analyst notes                                              |
+| `show_analyst_note`          | Retrieves the content of a specific analyst note                     |
+| `add_analyst_note`           | Creates a new analyst note                                           |
+| `update_analyst_note`        | Updates an existing analyst note                                     |
 
 # Build from source
 
