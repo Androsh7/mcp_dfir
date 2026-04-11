@@ -9,6 +9,7 @@ MCP DFIR (Digital Forensics Incident Response) is an MCP server that gives AI ag
 - File search with `strings`, `grep`, and `find`
 - Archive extraction with `unzip` and `tar`
 - Automatic Windows symbol downloading and conversion
+- Linux symbol search and downloading from [Abyss-W4tcher/volatility3-symbols](https://github.com/Abyss-W4tcher/volatility3-symbols)
 - Persistent command history — the agent never re-runs commands already completed
 - Analyst notes — the agent records findings in structured markdown notes
 
@@ -70,6 +71,8 @@ options:
 | ---------------------------- | ---------------------------------------------------------- |
 | `run_volatility_command`     | Runs Volatility3 (`vol`) for memory forensics              |
 | `download_windows_symbol`    | Downloads and converts Windows PDB symbols for Volatility3 |
+| `download_linux_symbol`      | Downloads a Linux symbol file from Abyss-W4tcher/volatility3-symbols |
+| `search_linux_symbols`       | Searches the Linux symbol map by regex to find matching symbol files |
 | `run_sleuthkit_command`      | Runs any Sleuth Kit tool for disk forensics                |
 | `run_strings`                | Runs `strings` on a file                                   |
 | `run_grep`                   | Runs `grep` on files                                       |
