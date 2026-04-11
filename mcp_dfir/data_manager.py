@@ -88,7 +88,7 @@ class AnalystNoteManager(BaseModel):
     def load(self):
         with open(file=config.analyst_notes_list_json, encoding="utf-8") as note_file:
             for note_dict in json.load(note_file):
-                self.note_list.append(AnalystNote.model_validate(note_dict))
+                self.note_list.append(AnalystNoteSummary.model_validate(note_dict))
 
     def add_note(self, note: AnalystNote) -> AnalystNote:
         self.note_list.append(note.summary())
