@@ -35,7 +35,7 @@ Add the following to your Claude Desktop `claude_desktop_config.json`:
 {
   "mcpServers": {
     "mcp-dfir": {
-      "command": "mcp-dfir"
+      "command": "python -m mcp_dfir"
     }
   }
 }
