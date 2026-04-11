@@ -1,0 +1,19 @@
+# VSCode
+.vscode
+
+# Python
+.venv
+__pycache__/
+build/
+*.egg-info
+uv.lock
+dist/
+
+# Claude
+.claude/
+
+# Project
+/analysis/
+/evidence/
+/symbols/
+/artifacts/

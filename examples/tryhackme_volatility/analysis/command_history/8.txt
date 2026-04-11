@@ -1,0 +1,21 @@
+
+{"Args": null, "PID": 4, "Process": "System", "__children": []}
+{"Args": "\\SystemRoot\\System32\\smss.exe", "PID": 348, "Process": "smss.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\csrss.exe ObjectDirectory=\\Windows SharedSection=1024,3072,512 Windows=On SubSystemType=Windows ServerDll=basesrv,1 ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2 ProfileControl=Off MaxRequestThreads=16", "PID": 596, "Process": "csrss.exe", "__children": []}
+{"Args": "winlogon.exe", "PID": 620, "Process": "winlogon.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\services.exe", "PID": 664, "Process": "services.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\lsass.exe", "PID": 676, "Process": "lsass.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\svchost -k DcomLaunch", "PID": 836, "Process": "svchost.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\svchost -k rpcss", "PID": 904, "Process": "svchost.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\System32\\svchost.exe -k netsvcs", "PID": 1024, "Process": "svchost.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\svchost.exe -k NetworkService", "PID": 1084, "Process": "svchost.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService", "PID": 1152, "Process": "svchost.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\spoolsv.exe", "PID": 1484, "Process": "spoolsv.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\Explorer.EXE", "PID": 1636, "Process": "explorer.exe", "__children": []}
+{"Args": "\"C:\\Intel\\ivecuqmanpnirkt615\\tasksche.exe\" ", "PID": 1940, "Process": "tasksche.exe", "__children": []}
+{"Args": "\"C:\\WINDOWS\\system32\\ctfmon.exe\" ", "PID": 1956, "Process": "ctfmon.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\svchost.exe -k LocalService", "PID": 260, "Process": "svchost.exe", "__children": []}
+{"Args": "@WanaDecryptor@.exe", "PID": 740, "Process": "@WanaDecryptor@", "__children": []}
+{"Args": "\"C:\\WINDOWS\\system32\\wuauclt.exe\" /RunStoreAsComServer Local\\[400]SUSDS81a6658cb72fa845814e75cca9a42bf2", "PID": 1768, "Process": "wuauclt.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\System32\\alg.exe", "PID": 544, "Process": "alg.exe", "__children": []}
+{"Args": "C:\\WINDOWS\\system32\\wscntfy.exe", "PID": 1168, "Process": "wscntfy.exe", "__children": []}

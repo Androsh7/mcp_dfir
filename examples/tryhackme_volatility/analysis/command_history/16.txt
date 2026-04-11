@@ -1,0 +1,15 @@
+The command executed was `C:\Program Files\Docker\Docker\resources\bin\docker.EXE exec a0e15b3325ac0fb22aaae16fb802453df230a153da1941130827a4f592aa0225 vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.printkey --key SYSTEM\CurrentControlSet\Services\mssecsvc2.0 --hive-offset 3775093600`.
+It returned with code 2
+The content of stdout can be found above the stacktrace (it wasn't captured).
+The content of stderr is 'usage: vol.py [-h] [-c CONFIG] [--parallelism [{processes,threads,off}]]
+              [-e EXTEND] [-p PLUGIN_DIRS] [-s SYMBOL_DIRS] [-v] [-l LOG]
+              [-o OUTPUT_DIR] [-q] [-f FILE] [--write-config]
+              [--save-config SAVE_CONFIG] [--clear-cache]
+              [--cache-path CACHE_PATH] [--offline | -u URL]
+              [--filters FILTERS] [--hide-columns [HIDE_COLUMNS ...]]
+              [-r RENDERER] [--single-location SINGLE_LOCATION]
+              [--stackers [STACKERS ...]]
+              [--single-swap-locations [SINGLE_SWAP_LOCATIONS ...]]
+              PLUGIN ...
+vol.py: error: unrecognized arguments: --hive-offset 3775093600
+'

@@ -1,0 +1,27 @@
+
+The command executed was `C:\Program Files\Docker\Docker\resources\bin\docker.EXE exec a0e15b3325ac0fb22aaae16fb802453df230a153da1941130827a4f592aa0225 vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.netstat`.
+It returned with code 1
+The content of stdout can be found above the stacktrace (it wasn't captured).
+The content of stderr is 'Volatility 3 Framework 2.28.0
+Progress:    0.00		Scanning FileLayer using PageMapScannerProgress:   15.11		Scanning FileLayer using PageMapScannerProgress:   64.75		Scanning FileLayer using PageMapScannerProgress:    0.00		Scanning FileLayer using PageMapScannerProgress:  100.00		Stacking attempts finished             Progress:    0.00		Scanning memory_layer using BytesScannerProgress:    0.00		Scanning layer_name using PdbSignatureScannerProgress:    0.00		Scanning layer_name using PdbSignatureScannerProgress:  100.00		PDB scanning finished                        Traceback (most recent call last):
+  File "/tools/volatility3/vol.py", line 16, in <module>
+    volatility3.cli.main()
+  File "/tools/volatility3/volatility3/cli/__init__.py", line 934, in main
+    CommandLine().run()
+  File "/tools/volatility3/volatility3/cli/__init__.py", line 522, in run
+    renderer.render(grid)
+  File "/tools/volatility3/volatility3/cli/text_renderer.py", line 611, in render
+    grid.populate(visitor, final_output)
+  File "/tools/volatility3/volatility3/framework/renderers/__init__.py", line 318, in populate
+    for level, item in self._generator:
+                       ^^^^^^^^^^^^^^^
+  File "/tools/volatility3/volatility3/framework/plugins/windows/netstat.py", line 636, in _generator
+    netscan_symbol_table = netscan.NetScan.create_netscan_symbol_table(
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tools/volatility3/volatility3/framework/plugins/windows/netscan.py", line 347, in create_netscan_symbol_table
+    symbol_filename, class_types = cls.determine_tcpip_version(
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tools/volatility3/volatility3/framework/plugins/windows/netscan.py", line 318, in determine_tcpip_version
+    raise NotImplementedError(
+NotImplementedError: This version of Windows is not supported: 5.1 15.2600!
+'

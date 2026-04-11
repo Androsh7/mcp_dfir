@@ -1,0 +1,52 @@
+
+{"GrantedAccess": 983043, "HandleValue": 4, "Name": "CritSecOutOfMemoryEvent", "Offset": 3774895208, "PID": 1940, "Process": "tasksche.exe", "Type": "KeyedEvent", "__children": []}
+{"GrantedAccess": 3, "HandleValue": 8, "Name": "KnownDlls", "Offset": 3779588944, "PID": 1940, "Process": "tasksche.exe", "Type": "Directory", "__children": []}
+{"GrantedAccess": 1048608, "HandleValue": 12, "Name": "\\Device\\HarddiskVolume1\\WINDOWS\\WinSxS\\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202", "Offset": 2180763136, "PID": 1940, "Process": "tasksche.exe", "Type": "File", "__children": []}
+{"GrantedAccess": 983935, "HandleValue": 16, "Name": "WinSta0", "Offset": 2182598560, "PID": 1940, "Process": "tasksche.exe", "Type": "WindowStation", "__children": []}
+{"GrantedAccess": 983055, "HandleValue": 20, "Name": "Windows", "Offset": 3780812112, "PID": 1940, "Process": "tasksche.exe", "Type": "Directory", "__children": []}
+{"GrantedAccess": 35586049, "HandleValue": 24, "Name": null, "Offset": 3786974288, "PID": 1940, "Process": "tasksche.exe", "Type": "Port", "__children": []}
+{"GrantedAccess": 35586051, "HandleValue": 28, "Name": null, "Offset": 2183468072, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 983551, "HandleValue": 32, "Name": "Default", "Offset": 2184600704, "PID": 1940, "Process": "tasksche.exe", "Type": "Desktop", "__children": []}
+{"GrantedAccess": 983935, "HandleValue": 36, "Name": "WinSta0", "Offset": 2182598560, "PID": 1940, "Process": "tasksche.exe", "Type": "WindowStation", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 40, "Name": null, "Offset": 2182783888, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 44, "Name": null, "Offset": 2182783832, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 34537535, "HandleValue": 48, "Name": "MACHINE", "Offset": 3785382200, "PID": 1940, "Process": "tasksche.exe", "Type": "Key", "__children": []}
+{"GrantedAccess": 1048608, "HandleValue": 52, "Name": "\\Device\\HarddiskVolume1\\Intel\\ivecuqmanpnirkt615", "Offset": 2183347992, "PID": 1940, "Process": "tasksche.exe", "Type": "File", "__children": []}
+{"GrantedAccess": 8, "HandleValue": 56, "Name": null, "Offset": 3785784648, "PID": 1940, "Process": "tasksche.exe", "Type": "Token", "__children": []}
+{"GrantedAccess": 131087, "HandleValue": 60, "Name": "BaseNamedObjects", "Offset": 3779721480, "PID": 1940, "Process": "tasksche.exe", "Type": "Directory", "__children": []}
+{"GrantedAccess": 1179649, "HandleValue": 64, "Name": "ShimCacheMutex", "Offset": 2182644712, "PID": 1940, "Process": "tasksche.exe", "Type": "Mutant", "__children": []}
+{"GrantedAccess": 2, "HandleValue": 68, "Name": "ShimSharedMemory", "Offset": 3781575904, "PID": 1940, "Process": "tasksche.exe", "Type": "Section", "__children": []}
+{"GrantedAccess": 1048577, "HandleValue": 72, "Name": "\\Device\\KsecDD", "Offset": 2183366312, "PID": 1940, "Process": "tasksche.exe", "Type": "File", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 76, "Name": "shell.{A48F1A32-A340-11D1-BC6B-00A0C90312E1}", "Offset": 2185057488, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048608, "HandleValue": 80, "Name": "\\Device\\HarddiskVolume1\\WINDOWS\\WinSxS\\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202", "Offset": 2184842448, "PID": 1940, "Process": "tasksche.exe", "Type": "File", "__children": []}
+{"GrantedAccess": 2031617, "HandleValue": 84, "Name": "MsWinZonesCacheCounterMutexA", "Offset": 2183459200, "PID": 1940, "Process": "tasksche.exe", "Type": "Mutant", "__children": []}
+{"GrantedAccess": 2031617, "HandleValue": 88, "Name": "MsWinZonesCacheCounterMutexA0", "Offset": 2184067848, "PID": 1940, "Process": "tasksche.exe", "Type": "Mutant", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 92, "Name": null, "Offset": 2183349328, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 96, "Name": null, "Offset": 2182987224, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 100, "Name": null, "Offset": 2183371000, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 104, "Name": null, "Offset": 2183256728, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 108, "Name": null, "Offset": 2183256560, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 112, "Name": null, "Offset": 2183256616, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 116, "Name": null, "Offset": 2181121752, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 120, "Name": null, "Offset": 2180975088, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 124, "Name": null, "Offset": 2180974984, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 128, "Name": null, "Offset": 2180975192, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 132, "Name": null, "Offset": 2180975504, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 136, "Name": null, "Offset": 2180975400, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 1048579, "HandleValue": 140, "Name": null, "Offset": 2180975712, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 144, "Name": null, "Offset": 2183525848, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 148, "Name": null, "Offset": 2183378536, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 152, "Name": null, "Offset": 2182464304, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 156, "Name": null, "Offset": 2183484912, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 2032639, "HandleValue": 160, "Name": "Tid 1944 Pid 1940", "Offset": 2183327136, "PID": 1940, "Process": "tasksche.exe", "Type": "Thread", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 164, "Name": null, "Offset": 2182730880, "PID": 1940, "Process": "tasksche.exe", "Type": "IoCompletion", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 168, "Name": null, "Offset": 2180939400, "PID": 1940, "Process": "tasksche.exe", "Type": "IoCompletion", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 172, "Name": null, "Offset": 2182730880, "PID": 1940, "Process": "tasksche.exe", "Type": "IoCompletion", "__children": []}
+{"GrantedAccess": 2032639, "HandleValue": 180, "Name": "Tid 488 Pid 1940", "Offset": 2180684576, "PID": 1940, "Process": "tasksche.exe", "Type": "Thread", "__children": []}
+{"GrantedAccess": 2032639, "HandleValue": 184, "Name": "Tid 504 Pid 1940", "Offset": 2180896320, "PID": 1940, "Process": "tasksche.exe", "Type": "Thread", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 192, "Name": "shell.{210A4BA0-3AEA-1069-A2D9-08002B30309D}", "Offset": 2182998608, "PID": 1940, "Process": "tasksche.exe", "Type": "Semaphore", "__children": []}
+{"GrantedAccess": 34537535, "HandleValue": 196, "Name": "USER\\S-1-5-21-602162358-764733703-1957994488-1003", "Offset": 3787028688, "PID": 1940, "Process": "tasksche.exe", "Type": "Key", "__children": []}
+{"GrantedAccess": 2031619, "HandleValue": 200, "Name": "userenv:  User Profile setup event", "Offset": 2182725088, "PID": 1940, "Process": "tasksche.exe", "Type": "Event", "__children": []}
+{"GrantedAccess": 2031617, "HandleValue": 208, "Name": null, "Offset": 3780314224, "PID": 1940, "Process": "tasksche.exe", "Type": "Port", "__children": []}
+{"GrantedAccess": 2031617, "HandleValue": 228, "Name": null, "Offset": 3785645272, "PID": 1940, "Process": "tasksche.exe", "Type": "Port", "__children": []}
+{"GrantedAccess": 4, "HandleValue": 232, "Name": null, "Offset": 3784049360, "PID": 1940, "Process": "tasksche.exe", "Type": "Section", "__children": []}

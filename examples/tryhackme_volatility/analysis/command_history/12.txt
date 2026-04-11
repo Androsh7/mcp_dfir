@@ -1,0 +1,14 @@
+
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\Documents and Settings\\donny\\Local Settings\\Application Data\\Microsoft\\Windows\\UsrClass.dat", "Offset": 3786504680, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\Documents and Settings\\donny\\NTUSER.DAT", "Offset": 3786353504, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\Documents and Settings\\LocalService\\Local Settings\\Application Data\\Microsoft\\Windows\\UsrClass.dat", "Offset": 3782751136, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\Documents and Settings\\LocalService\\NTUSER.DAT", "Offset": 3784186720, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\Documents and Settings\\NetworkService\\Local Settings\\Application Data\\Microsoft\\Windows\\UsrClass.dat", "Offset": 3782619144, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\Documents and Settings\\NetworkService\\NTUSER.DAT", "Offset": 3782593376, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\software", "Offset": 3779660640, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\default", "Offset": 3779733336, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\SAM", "Offset": 3779615584, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\SECURITY", "Offset": 3779566432, "__children": []}
+{"File output": "Disabled", "FileFullPath": "", "Offset": 3778588680, "__children": []}
+{"File output": "Disabled", "FileFullPath": "\\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\system", "Offset": 3775093600, "__children": []}
+{"File output": "Disabled", "FileFullPath": "", "Offset": 3775062024, "__children": []}

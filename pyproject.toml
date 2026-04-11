@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-dfir"
+version = "0.1.0"
+description = "MCP Server for Performing Memory and Disk Forensics"
+requires-python = ">=3.11"
+dependencies = [
+    "attrs",
+    "loguru",
+    "mcp",
+    "python_on_whales",
+    "requests",
+]
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "mcp[cli]",
+    "pytest",
+    "ruff",
+    "twine",
+    "uv",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+select = [
+    "E", # Pycodestyle errors
+    "F", # Pyflakes
+    "I", # Isort
+    "PL", # Pylint
+    "UP", # Pyupgrade
+]
+
+[tool.pylint.format]
+max-line-length = 120
+
+[project.scripts]
+mcp-dfir = "mcp_dfir.runner:main"
+
+[tool.setuptools]
+packages = ["mcp_dfir", "mcp_dfir.tools"]
