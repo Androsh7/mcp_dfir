@@ -13,7 +13,7 @@ dist/
 .claude/
 
 # Project
-analysis/
-evidence/
-symbols/
-artifacts/
+/analysis/
+/evidence/
+/symbols/
+/artifacts/

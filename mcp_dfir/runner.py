@@ -17,6 +17,7 @@ def main():
     parser.add_argument(
         "-d", "--case-dir", type=Path, default=Path.cwd(), help=f"Working directory for the case, default: {Path.cwd()}"
     )
+    parser.add_argument("--init", action="store_true", help="Create case directories then exit")
     parser.add_argument(
         "--clear-case-dir", action="store_true", help="Clear the case directory before starting the server"
     )
@@ -38,6 +39,9 @@ def main():
 
     # Load config
     config.load(working_directory=args.case_dir)
+
+    if args.init:
+        sys.exit(0)
 
     if args.clear_docker:
         from mcp_dfir.docker_manager import docker_manager

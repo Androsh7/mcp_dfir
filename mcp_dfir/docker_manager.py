@@ -5,7 +5,7 @@ from attrs import define, field, validators
 from loguru import logger
 from mcp.server.fastmcp import Context
 from python_on_whales import Container, DockerClient
-from python_on_whales.exceptions import NoSuchContainer
+from python_on_whales.exceptions import DockerException, NoSuchContainer
 
 # Project libraries
 from mcp_dfir.config import config
@@ -69,13 +69,21 @@ class DockerManager:
             raise RuntimeError("No docker container is currently running")
 
         ctx.report_progress(f"Running command {' '.join(command_list)}")
+        output = []
+        exit_code = 0
+        try:
+            for stream, data in self.docker.execute(self.container, command_list, stream=True):
+                if stream == "stdout":
+                    output.append(data.decode())
+        except DockerException as ex:
+            exit_code = ex.return_code if ex.return_code is not None else 1
+            output.append(str(ex))
+        result = "".join(output)
         return command_history_manager.add_command(
             CommandRecord(
                 command=" ".join(command_list),
-                result=self.docker.execute(
-                    self.container,
-                    command_list,
-                ),
+                result=result,
+                exit_code=exit_code,
             )
         )
 

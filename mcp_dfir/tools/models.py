@@ -22,6 +22,7 @@ class CommandRecordSummary(BaseModel):
     number: int = Field(examples=[1])
     command: str = Field(examples=["vol -f capture.mem linux.pslist"])
     date_run: str = Field(default_factory=date_as_str, examples=["01/01/2024 12:00:00"])
+    exit_code: int = Field(examples=[0])
 
 
 class CommandRecord(BaseModel):
@@ -33,12 +34,14 @@ class CommandRecord(BaseModel):
             "Volatility 3 Framework 2.27.0\n\nPID\tPPID\tImageFileName\tOffset(V)\tThreads\tHandles\tSessionId\tWow64\tCreateTime\tExitTime\tFile output\n\n4\t0\tSystem\t"
         ],
     )
+    exit_code: int = Field(examples=[0])
 
     def summary(self, number: int) -> CommandRecordSummary:
         return CommandRecordSummary(
             number=number,
             command=self.command,
             date_run=self.date_run,
+            exit_code=self.exit_code,
         )
 
 

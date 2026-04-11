@@ -1,0 +1,122 @@
+[
+    {
+        "number": 1,
+        "command": "sha256sum /evidence/Investigation-2.raw",
+        "date_run": "11/04/2026 14:52:00",
+        "exit_code": 0
+    },
+    {
+        "number": 2,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.info",
+        "date_run": "11/04/2026 14:52:05",
+        "exit_code": 1
+    },
+    {
+        "number": 3,
+        "command": "mcp_dfir:tools:volatility:_download_windows_pdb(pdb_name=\"ntoskrnl.pdb\", guid=\"423320282DB842E7BA2B0BFC86A84D75\", age=2)",
+        "date_run": "11/04/2026 14:52:25",
+        "exit_code": 0
+    },
+    {
+        "number": 4,
+        "command": "pdbconv -f /symbols/windows/raw/423320282DB842E7BA2B0BFC86A84D75_ntoskrnl.pdb -g 423320282DB842E7BA2B0BFC86A84D75 -o /symbols/windows/ntoskrnl.pdb/423320282DB842E7BA2B0BFC86A84D75-2.json.xz",
+        "date_run": "11/04/2026 14:52:35",
+        "exit_code": 0
+    },
+    {
+        "number": 5,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.info",
+        "date_run": "11/04/2026 14:52:43",
+        "exit_code": 0
+    },
+    {
+        "number": 6,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.pslist",
+        "date_run": "11/04/2026 14:52:47",
+        "exit_code": 0
+    },
+    {
+        "number": 7,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.netscan",
+        "date_run": "11/04/2026 14:53:20",
+        "exit_code": 1
+    },
+    {
+        "number": 8,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.cmdline",
+        "date_run": "11/04/2026 14:53:23",
+        "exit_code": 0
+    },
+    {
+        "number": 9,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.psscan",
+        "date_run": "11/04/2026 14:53:31",
+        "exit_code": 0
+    },
+    {
+        "number": 10,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.malfind",
+        "date_run": "11/04/2026 14:53:40",
+        "exit_code": 0
+    },
+    {
+        "number": 11,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.netstat",
+        "date_run": "11/04/2026 14:54:10",
+        "exit_code": 1
+    },
+    {
+        "number": 12,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.hivelist",
+        "date_run": "11/04/2026 14:54:14",
+        "exit_code": 0
+    },
+    {
+        "number": 13,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.handles --pid 1940",
+        "date_run": "11/04/2026 14:54:17",
+        "exit_code": 0
+    },
+    {
+        "number": 14,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.printkey --key SYSTEM\\CurrentControlSet\\Services\\mssecsvc2.0",
+        "date_run": "11/04/2026 14:54:46",
+        "exit_code": 0
+    },
+    {
+        "number": 15,
+        "command": "strings -a -n 8 /evidence/Investigation-2.raw",
+        "date_run": "11/04/2026 14:55:10",
+        "exit_code": 0
+    },
+    {
+        "number": 16,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.printkey --key SYSTEM\\CurrentControlSet\\Services\\mssecsvc2.0 --hive-offset 3775093600",
+        "date_run": "11/04/2026 14:55:27",
+        "exit_code": 2
+    },
+    {
+        "number": 17,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.connections",
+        "date_run": "11/04/2026 14:55:28",
+        "exit_code": 2
+    },
+    {
+        "number": 18,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.printkey --key SYSTEM\\CurrentControlSet\\Services\\mssecsvc2.0\\Parameters",
+        "date_run": "11/04/2026 14:55:42",
+        "exit_code": 0
+    },
+    {
+        "number": 19,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.printkey --key SYSTEM\\CurrentControlSet\\Services\\mssecsvc2.0\\Parameters",
+        "date_run": "11/04/2026 14:56:07",
+        "exit_code": 0
+    },
+    {
+        "number": 20,
+        "command": "vol -s /symbols -r jsonl -f /evidence/Investigation-2.raw windows.registry.printkey --key SYSTEM\\CurrentControlSet\\Services\\mssecsvc2.0 --recurse",
+        "date_run": "11/04/2026 14:56:36",
+        "exit_code": 0
+    }
+]

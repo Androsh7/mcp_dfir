@@ -32,7 +32,7 @@ def _run_volatility_pdbconv_command(ctx: Context, arguments: list[str]) -> Comma
     return docker_manager.exec_stream(command_list=["pdbconv", *arguments], ctx=ctx)
 
 
-def _download_windows_pdb(ctx: Context, pdb_name: str, guid: str, age: int) -> str:
+def _download_windows_pdb(ctx: Context, pdb_name: str, guid: str, age: int) -> tuple[str, CommandRecordSummary]:
     """Downloads a pdb file and returns the internal path"""
     guid = guid.replace("-", "")  # Normalize path
     url = f"{WINDOWS_SYMBOL_SERVER}/{pdb_name}/{guid}{age}/{pdb_name}"
@@ -54,12 +54,16 @@ def _download_windows_pdb(ctx: Context, pdb_name: str, guid: str, age: int) -> s
 
     ctx.report_progress(f"Saved pdb file to {internal_path}")
 
-    return internal_path
+    return internal_path, command_history_manager.add_command(CommandRecord(
+        command=f'mcp_dfir:tools:volatility:_download_windows_pdb(pdb_name="{pdb_name}", guid="{guid}", age={age})',
+        result=f"Successfully downloaded {internal_path}",
+        exit_code=0,
+    ))
 
 
 def download_windows_symbol(
     ctx: Context, pdb_name: str, guid: str, age: int, overwrite: bool = False
-) -> CommandRecordSummary:
+) -> tuple[CommandRecordSummary, CommandRecordSummary]:
     """Downloads windows symbols for volatility to `/symbols`"""
 
     # Set correct naming convention and directory tree for volatility parsing
@@ -75,7 +79,7 @@ def download_windows_symbol(
         output_file_external_path.parent.mkdir(mode=500, parents=True, exist_ok=True)
 
     # Download pdb
-    internal_path = _download_windows_pdb(ctx=ctx, pdb_name=pdb_name, guid=guid, age=age)
+    internal_path, download_output = _download_windows_pdb(ctx=ctx, pdb_name=pdb_name, guid=guid, age=age)
 
     # Run conversion to symbol file
     pdbconv_output = _run_volatility_pdbconv_command(
@@ -88,7 +92,7 @@ def download_windows_symbol(
     data = data.replace(b"unknown.pdb", pdb_name.encode("utf-8"))
     output_file_external_path.write_bytes(lzma.compress(data))
 
-    return pdbconv_output
+    return (pdbconv_output, download_output)
 
 
 class SymbolSearchResult(BaseModel):
@@ -127,6 +131,7 @@ def search_linux_symbols(ctx: Context, regex: str) -> CommandRecordSummary:
         CommandRecord(
             command=f'mcp_dfir:tools:volatility:search_linux_symbols(regex="{regex}")',
             result=json.dumps(out_list, indent=4),
+            exit_code=0,
         )
     )
 
@@ -150,5 +155,6 @@ def download_linux_symbol(ctx: Context, symbol_path: str) -> CommandRecordSummar
         CommandRecord(
             command=f'mcp_dfir:tools:volatility:download_linux_symbol(symbol_path="{symbol_path}")',
             result=f"Successfully downloaded symbol file {file_name} ({file_path.stat().st_size} bytes) from {url}",
+            exit_code=0,
         )
     )

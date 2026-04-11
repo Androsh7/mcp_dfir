@@ -1,0 +1,79 @@
+[
+    {
+        "title": "Case 002 - Evidence Inventory",
+        "status": "unknown",
+        "tags": [
+            "evidence",
+            "inventory",
+            "windows-xp"
+        ]
+    },
+    {
+        "title": "WannaCry Ransomware Processes Identified",
+        "status": "malicious",
+        "tags": [
+            "wannacry",
+            "ransomware",
+            "process",
+            "tasksche.exe",
+            "WanaDecryptor"
+        ]
+    },
+    {
+        "title": "WannaCry Kill Switch Domain Found in Memory",
+        "status": "malicious",
+        "tags": [
+            "wannacry",
+            "kill-switch",
+            "iuqerfsodp",
+            "network"
+        ]
+    },
+    {
+        "title": "WannaCry Bitcoin Ransom Addresses and Encrypted Files",
+        "status": "malicious",
+        "tags": [
+            "wannacry",
+            "bitcoin",
+            "ransomware",
+            "encryption",
+            "WNCRY"
+        ]
+    },
+    {
+        "title": "WannaCry Service Persistence - mssecsvc2.0",
+        "status": "malicious",
+        "tags": [
+            "wannacry",
+            "persistence",
+            "service",
+            "registry",
+            "mssecsvc2.0"
+        ]
+    },
+    {
+        "title": "WannaCry Malware Drop Path and Binary Hash",
+        "status": "malicious",
+        "tags": [
+            "wannacry",
+            "dropper",
+            "hash",
+            "artifacts",
+            "C:\\Intel"
+        ]
+    },
+    {
+        "title": "Case 002 - Complete Incident Analysis Report",
+        "status": "malicious",
+        "tags": [
+            "report",
+            "wannacry",
+            "ransomware",
+            "lazarus-group",
+            "DPRK",
+            "EternalBlue",
+            "MS17-010",
+            "summary"
+        ]
+    }
+]

@@ -56,6 +56,7 @@ class CommandHistoryManager(BaseModel):
                         command=command.command,
                         date_run=command.date_run,
                         result=file.read(),
+                        exit_code=command.exit_code,
                     )
         raise KeyError(f"Could not find command with number {command_number}")
 
