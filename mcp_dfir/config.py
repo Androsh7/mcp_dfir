@@ -60,13 +60,13 @@ class Config:
 
         # Directories
         self.working_directory = working_directory
-        
+
         self.analysis_directory = self.working_directory / "analysis"
         self.analysis_directory.mkdir(mode=500, parents=False, exist_ok=True)
-        
+
         self.artifact_directory = self.working_directory / "artifacts"
         self.artifact_directory.mkdir(mode=500, parents=False, exist_ok=True)
-        
+
         self.symbols_directory = self.working_directory / "symbols"
         self.symbols_directory.mkdir(mode=500, parents=False, exist_ok=True)
 

@@ -54,11 +54,13 @@ def _download_windows_pdb(ctx: Context, pdb_name: str, guid: str, age: int) -> t
 
     ctx.report_progress(f"Saved pdb file to {internal_path}")
 
-    return internal_path, command_history_manager.add_command(CommandRecord(
-        command=f'mcp_dfir:tools:volatility:_download_windows_pdb(pdb_name="{pdb_name}", guid="{guid}", age={age})',
-        result=f"Successfully downloaded {internal_path}",
-        exit_code=0,
-    ))
+    return internal_path, command_history_manager.add_command(
+        CommandRecord(
+            command=f'mcp_dfir:tools:volatility:_download_windows_pdb(pdb_name="{pdb_name}", guid="{guid}", age={age})',
+            result=f"Successfully downloaded {internal_path}",
+            exit_code=0,
+        )
+    )
 
 
 def download_windows_symbol(
